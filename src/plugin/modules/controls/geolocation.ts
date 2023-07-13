@@ -71,8 +71,7 @@ export class GeolocationControl implements atlas.Control {
 
   private _gpsArrowIcon =
     '<div style="{transform}"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><g transform="translate(2 2)"><polygon points="12,0 0,24 12,17 24,24" stroke-width="2" stroke="white" fill="{color}"/></g></svg></div>'
-  private _gpsDotIcon =
-    '<div class="atlas-map-gpsPulseIcon" style="background-color:{color}"></div>'
+  private _gpsDotIcon = '<div class="-" style="background-color:{color}"></div>'
 
   private _iconTemplate =
     "data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' x='0' y='0' viewBox='0 0 561 561' xml:space='preserve'><g fill='{color}'><path d='M280.5,178.5c-56.1,0-102,45.9-102,102c0,56.1,45.9,102,102,102c56.1,0,102-45.9,102-102C382.5,224.4,336.6,178.5,280.5,178.5z M507.45,255C494.7,147.9,410.55,63.75,306,53.55V0h-51v53.55C147.9,63.75,63.75,147.9,53.55,255H0v51h53.55C66.3,413.1,150.45,497.25,255,507.45V561h51v-53.55C413.1,494.7,497.25,410.55,507.45,306H561v-51H507.45z M280.5,459C181.05,459,102,379.95,102,280.5S181.05,102,280.5,102S459,181.05,459,280.5S379.95,459,280.5,459z'/></g></svg>"
@@ -458,7 +457,6 @@ export class GeolocationControl implements atlas.Control {
   private _onGpsSuccess = (position: Position) => {
     this._lastKnownPosition = position
 
-    console.log('woof woof', this._atlasLib, position)
     if (this._isActive) {
       const pos = [position.coords.longitude, position.coords.latitude]
 
