@@ -1,0 +1,41 @@
+{
+  "name": "vue3_vite_boilerplate",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@creative-design-web/pinia-router": "^0.9.0",
+    "@popperjs/core": "^2.11.8",
+    "@vueuse/core": "^10.1.2",
+    "@vueuse/integrations": "^10.1.2",
+    "@vueuse/router": "^10.1.2",
+    "axios": "^1.4.0",
+    "azure-maps-control": "^2.3.1",
+    "bootstrap": "^5.3.0",
+    "pinia": "^2.1.3",
+    "vue": "^3.2.47",
+    "vue-router": "^4.2.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.59.9",
+    "@typescript-eslint/parser": "^5.59.9",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "@vue/eslint-config-prettier": "^7.1.0",
+    "@vue/eslint-config-typescript": "^11.0.3",
+    "eslint": "^8.42.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.14.1",
+    "fs-extra": "^11.1.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "sass": "^1.63.2",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9"
+  }
+}

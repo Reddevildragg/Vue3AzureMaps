@@ -1,0 +1,9 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "scss/at-extend-no-missing-placeholder": null,
+    "no-invalid-position-at-import-rule": null
+  },
+  "allowEmptyInput": true,
+  "fix": true
+}
