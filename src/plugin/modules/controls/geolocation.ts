@@ -1,4 +1,4 @@
-import atlas from 'azure-maps-control'
+import atlas, { HtmlMarker } from 'azure-maps-control'
 
 /** Options for the GeolocationControl. */
 interface GeolocationControlOptions {
@@ -145,14 +145,14 @@ export class GeolocationControl implements atlas.Control {
     )
 
     //Create different color icons and merge into CSS.
-    var grayIcon = this._iconTemplate.replace('{color}', 'Gray')
-    var blueIcon = this._iconTemplate.replace('{color}', 'DeepSkyBlue')
-    var css = this._gpsBtnCss
+    const grayIcon = this._iconTemplate.replace('{color}', 'Gray')
+    const blueIcon = this._iconTemplate.replace('{color}', 'DeepSkyBlue')
+    const css = this._gpsBtnCss
       .replace(/{grayIcon}/g, grayIcon)
       .replace(/{blueIcon}/g, blueIcon)
 
     //Add the CSS style for the control to the DOM.
-    var style = document.createElement('style')
+    const style = document.createElement('style')
     style.innerHTML = css
     document.body.appendChild(style)
 
@@ -178,7 +178,7 @@ export class GeolocationControl implements atlas.Control {
     this._container.appendChild(this._button)
 
     //Check that geolocation is supported.
-    GeolocationControl.isSupported().then(supported => {
+    GeolocationControl.isSupported().then((supported) => {
       if (supported) {
         //Show the button when we know geolocaiton is supported.
         this._container.style.display = ''
@@ -234,7 +234,7 @@ export class GeolocationControl implements atlas.Control {
 
       this._options.style = options.style
 
-      var color = options.style || 'light'
+      let color = options.style || 'light'
 
       if (options.style) {
         if (color === 'light') {
@@ -277,7 +277,7 @@ export class GeolocationControl implements atlas.Control {
       }
 
       if (options.positionOptions) {
-        var opt: PositionOptions = {}
+        const opt: PositionOptions = {}
 
         if (options.positionOptions.enableHighAccuracy) {
           opt.enableHighAccuracy = options.positionOptions.enableHighAccuracy
@@ -329,7 +329,7 @@ export class GeolocationControl implements atlas.Control {
       // http://caniuse.com/#feat=permissions-api
       // Test for the case where a browser disables Geolocation because of an insecure origin.
 
-      var p = await window.navigator['permissions'].query({
+      const p = await window.navigator['permissions'].query({
         name: 'geolocation',
       })
       return p.state !== 'denied'
@@ -370,8 +370,8 @@ export class GeolocationControl implements atlas.Control {
    * Retrieves the background color for the button based on the map style. This is used when style is set to auto.
    */
   private _getColorFromMapStyle(): string {
-    var style = this._map.getStyle().style
-    var color = 'white'
+    const style = this._map.getStyle().style
+    let color = 'white'
 
     switch (style) {
       //When the style is dark (i.e. satellite, night), show the dark colored theme.
@@ -413,9 +413,9 @@ export class GeolocationControl implements atlas.Control {
       })
     }
 
-    var ariaLabel = this._resource.myLocation
-    var removeClass = 'atlas-map-gpsEnabled'
-    var addClass = 'atlas-map-gpsDisabled'
+    let ariaLabel = this._resource.myLocation
+    let removeClass = 'atlas-map-gpsEnabled'
+    let addClass = 'atlas-map-gpsDisabled'
 
     if (this._isActive) {
       removeClass = 'atlas-map-gpsDisabled'
@@ -458,14 +458,15 @@ export class GeolocationControl implements atlas.Control {
   private _onGpsSuccess = (position: Position) => {
     this._lastKnownPosition = position
 
+    console.log('woof woof', this._atlasLib, position)
     if (this._isActive) {
-      var pos = [position.coords.longitude, position.coords.latitude]
+      const pos = [position.coords.longitude, position.coords.latitude]
 
-      var icon = this._getMarkerIcon()
+      const icon = this._getMarkerIcon()
 
       if (this._options.showUserLocation) {
         if (!this._gpsMarker) {
-          this._gpsMarker = new this._atlasLib.HtmlMarker({
+          this._gpsMarker = new HtmlMarker(this._atlasLib, {
             position: pos,
             htmlContent: icon,
             color: this._options.markerColor,
@@ -486,7 +487,7 @@ export class GeolocationControl implements atlas.Control {
       }
 
       if (this._updateMapCamera) {
-        var opt: any = {
+        const opt: any = {
           center: pos,
         }
 
@@ -514,13 +515,13 @@ export class GeolocationControl implements atlas.Control {
 
   /** Generates the mark icon HTML */
   private _getMarkerIcon(): string {
-    var icon = this._gpsDotIcon
+    let icon = this._gpsDotIcon
 
-    var h = this._lastKnownPosition.coords.heading
+    let h = this._lastKnownPosition.coords.heading
 
     if (this._options.trackUserLocation && h !== null && !isNaN(h)) {
       h = Math.round(h)
-      var transform = `-webkit-transform:rotate(${h}deg);transform:rotate(${h}deg)`
+      const transform = `-webkit-transform:rotate(${h}deg);transform:rotate(${h}deg)`
       icon = this._gpsArrowIcon.replace('{transform}', transform)
     }
 

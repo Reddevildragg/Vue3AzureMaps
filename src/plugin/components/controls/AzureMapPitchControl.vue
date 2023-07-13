@@ -4,10 +4,11 @@
   import atlas, {
     ControlPosition,
     ControlStyle,
-    ZoomControlOptions,
+    PitchControlOptions,
   } from 'azure-maps-control'
   import { inject, onMounted, PropType, getCurrentInstance, Ref } from 'vue'
   import getOptionsFromProps from '@/plugin/utils/get-options-from-props.ts'
+  import { GeolocationControl } from '@/plugin/modules/controls/geolocation.ts'
   const app = getCurrentInstance()
 
   const props = defineProps({
@@ -50,11 +51,11 @@
     }
 
     const control =
-      new app.appContext.config.globalProperties.$_azureMaps.atlas.control.ZoomControl(
+      new app.appContext.config.globalProperties.$_azureMaps.atlas.control.PitchControl(
         {
-          zoomDelta: props.zoomDelta,
+          pitchDegreesDelta: props.pitchDegreesDelta,
           style: props.controlStyle,
-        } as ZoomControlOptions
+        } as PitchControlOptions
       )
     const options = getOptionsFromProps<atlas.ControlOptions>({
       position: props.position,

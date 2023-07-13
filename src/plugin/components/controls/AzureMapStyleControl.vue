@@ -4,7 +4,7 @@
   import atlas, {
     ControlPosition,
     ControlStyle,
-    ZoomControlOptions,
+    StyleControlOptions,
   } from 'azure-maps-control'
   import { inject, onMounted, PropType, getCurrentInstance, Ref } from 'vue'
   import getOptionsFromProps from '@/plugin/utils/get-options-from-props.ts'
@@ -50,11 +50,11 @@
     }
 
     const control =
-      new app.appContext.config.globalProperties.$_azureMaps.atlas.control.ZoomControl(
+      new app.appContext.config.globalProperties.$_azureMaps.atlas.control.StyleControl(
         {
-          zoomDelta: props.zoomDelta,
           style: props.controlStyle,
-        } as ZoomControlOptions
+          mapStyles: props.mapStyles as string[] | 'all',
+        } as StyleControlOptions
       )
     const options = getOptionsFromProps<atlas.ControlOptions>({
       position: props.position,

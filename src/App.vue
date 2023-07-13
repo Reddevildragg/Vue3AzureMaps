@@ -9,14 +9,26 @@
       @mousemove="onMouseMove"
       @mouseup="onMouseUp"
       @mousedown="onMouseDown">
-      <azure-map-zoom-control />
+      <AzureMapZoomControl />
+      <AzureMapPitchControl />
+      <AzureMapCompassControl />
+      <AzureMapFullscreenControl />
+      <AzureMapGeolocationControl />
+      <AzureMapStyleControl />
     </AzureMap>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { AzureMap } from '@/plugin'
-  import AzureMapZoomControl from '@/plugin/components/controls/AzureMapZoomControl.vue'
+  import {
+    AzureMap,
+    AzureMapCompassControl,
+    AzureMapFullscreenControl,
+    AzureMapGeolocationControl,
+    AzureMapPitchControl,
+    AzureMapStyleControl,
+    AzureMapZoomControl,
+  } from '@/plugin'
   import atlas from 'azure-maps-control'
 
   type MapOptions = atlas.ServiceOptions &
@@ -32,15 +44,15 @@
   } as MapOptions
 
   function onMouseDown(e: atlas.MapMouseEvent): void {
-    console.log(e)
+    // console.log(e)
   }
 
   function onMouseMove(e: atlas.MapMouseEvent): void {
-    console.log(e)
+    //console.log(e)
   }
 
   function onMouseUp(e: atlas.MapMouseEvent): void {
-    console.log(e)
+    // console.log(e)
   }
 </script>
 

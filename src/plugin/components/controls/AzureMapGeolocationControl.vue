@@ -4,7 +4,7 @@
   import atlas, { ControlPosition, ControlStyle } from 'azure-maps-control'
   import { inject, onMounted, PropType, getCurrentInstance, Ref } from 'vue'
   import getOptionsFromProps from '@/plugin/utils/get-options-from-props.ts'
-  import { FullscreenControl } from '@/plugin/modules/controls/fullscreen.ts'
+  import { GeolocationControl } from '@/plugin/modules/controls/geolocation.ts'
   const app = getCurrentInstance()
 
   const props = defineProps({
@@ -29,12 +29,38 @@
     },
 
     /**
-     * Specifies if the control should be hidden if fullscreen is not supported by the browser.
-     * @default true
+     * A Geolocation API PositionOptions object.
+     * Default: {enableHighAccuracy:false,timeout:6000}
      */
-    hideIfUnsupported: {
-      type: Boolean,
-      default: true,
+    positionOptions: {
+      type: Object as PropType<PositionOptions | null>,
+      default: null,
+    },
+
+    /**
+     * Shows the users location on the map using a marker.
+     * Default: true
+     * */
+    showUserLocation: {
+      type: Boolean as PropType<boolean | null>,
+      default: null,
+    },
+
+    /**
+     * If true the Geolocation Control becomes a toggle button and when active the map will receive updates to the user's location as it changes.
+     * Default: false
+     * */
+    trackUserLocation: {
+      type: Boolean as PropType<boolean | null>,
+      default: null,
+    },
+
+    /** The color of the user location marker.
+     * Default: DodgerBlue
+     * */
+    markerColor: {
+      type: String as PropType<string | null>,
+      default: null,
     },
   })
 
@@ -45,14 +71,19 @@
       return
     }
 
-    const control = new FullscreenControl({
-      hideIfUnsupported: props.hideIfUnsupported,
-      style: props.controlStyle,
-    })
+    const control = new GeolocationControl(
+      map.value,
+      getOptionsFromProps<atlas.ControlOptions>({
+        props: props,
+        excludedPropKeys: ['position'],
+        reservedAttributes: {
+          controlStyle: 'style',
+        },
+      })
+    )
     const options = getOptionsFromProps<atlas.ControlOptions>({
       position: props.position,
     } as atlas.ControlOptions)
-
     map.value.controls.add(control, options)
   })
 </script>

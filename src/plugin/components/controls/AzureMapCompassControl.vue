@@ -18,13 +18,13 @@
     },
 
     /**
-     * The extent to which the map will zoom with each click of the control.
-     * Default `1`.
-     * @default 1
+     * The angle that the map will rotate with each click of the control.
+     * Default `15`.
+     * @default 15
      */
-    zoomDelta: {
+    rotationDegreesDelta: {
       type: Number,
-      default: 1,
+      default: 15,
     },
 
     /**
@@ -45,17 +45,18 @@
       return
     }
 
-    map.value.controls.add(
-      new app.appContext.config.globalProperties.$_azureMaps.atlas.control.ZoomControl(
+    const control =
+      new app.appContext.config.globalProperties.$_azureMaps.atlas.control.CompassControl(
         {
-          zoomDelta: props.zoomDelta,
+          rotationDegreesDelta: props.rotationDegreesDelta,
           style: props.controlStyle,
-        },
-        getOptionsFromProps<atlas.ControlOptions>({
-          position: props.position,
-        } as atlas.ControlOptions)
+        }
       )
-    )
+
+    const options = getOptionsFromProps<atlas.ControlOptions>({
+      position: props.position,
+    } as atlas.ControlOptions)
+    map.value.controls.add(control, options)
   })
 </script>
 
