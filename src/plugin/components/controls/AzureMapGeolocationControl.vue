@@ -1,12 +1,19 @@
-<template></template>
+<template>
+  <AzureMapControl v-if="loaded" :control="control" :options="options" />
+</template>
 
 <script setup lang="ts">
   import atlas, { ControlPosition, ControlStyle } from 'azure-maps-control'
   import { inject, onMounted, PropType, getCurrentInstance, ref } from 'vue'
   import getOptionsFromProps from '@/plugin/utils/get-options-from-props.ts'
   import { GeolocationControl } from '@/plugin/modules/controls/geolocation.ts'
+  import AzureMapControl from '@/plugin/components/controls/AzureMapControl.vue'
   const app = getCurrentInstance()
   const map = ref<atlas.Map | null>(null)
+  const loaded = ref(false)
+
+  let control
+  let options
   const props = defineProps({
     /**
      * The position where the control will be placed on the map.
@@ -70,7 +77,7 @@
       return
     }
 
-    const control = new GeolocationControl(
+    control = new GeolocationControl(
       map.value,
       getOptionsFromProps<atlas.ControlOptions>({
         props: props,
@@ -80,10 +87,11 @@
         },
       })
     )
-    const options = getOptionsFromProps<atlas.ControlOptions>({
+    options = getOptionsFromProps<atlas.ControlOptions>({
       position: props.position,
     } as atlas.ControlOptions)
-    map.value.controls.add(control, options)
+
+    loaded.value = true
   })
 </script>
 

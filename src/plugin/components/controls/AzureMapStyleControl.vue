@@ -1,4 +1,6 @@
-<template></template>
+<template>
+  <AzureMapControl v-if="loaded" :control="control" :options="options" />
+</template>
 
 <script setup lang="ts">
   import atlas, {
@@ -15,8 +17,13 @@
     ref,
   } from 'vue'
   import getOptionsFromProps from '@/plugin/utils/get-options-from-props.ts'
+  import AzureMapControl from '@/plugin/components/controls/AzureMapControl.vue'
   const app = getCurrentInstance()
   const map = ref<atlas.Map | null>(null)
+  const loaded = ref(false)
+
+  let control
+  let options
   const props = defineProps({
     /**
      * The position where the control will be placed on the map.
@@ -55,18 +62,18 @@
       return
     }
 
-    const control =
+    control =
       new app.appContext.config.globalProperties.$_azureMaps.atlas.control.StyleControl(
         {
           style: props.controlStyle,
           mapStyles: props.mapStyles as string[] | 'all',
         } as StyleControlOptions
       )
-    const options = getOptionsFromProps<atlas.ControlOptions>({
+    options = getOptionsFromProps<atlas.ControlOptions>({
       position: props.position,
     } as atlas.ControlOptions)
 
-    map.value.controls.add(control, options)
+    loaded.value = true
   })
 </script>
 

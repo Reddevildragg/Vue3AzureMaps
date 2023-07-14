@@ -1,7 +1,13 @@
-<template></template>
+<template>
+  <AzureMapControl v-if="loaded" :control="control" :options="options" />
+</template>
 
 <script setup lang="ts">
-  import atlas, { ControlPosition, ControlStyle } from 'azure-maps-control'
+  import atlas, {
+    CompassControlOptions,
+    ControlPosition,
+    ControlStyle,
+  } from 'azure-maps-control'
   import {
     inject,
     onMounted,
@@ -11,6 +17,7 @@
     ref,
   } from 'vue'
   import getOptionsFromProps from '@/plugin/utils/get-options-from-props.ts'
+  import AzureMapControl from '@/plugin/components/controls/AzureMapControl.vue'
   const app = getCurrentInstance()
 
   const props = defineProps({
@@ -45,6 +52,10 @@
     },
   })
   const map = ref<atlas.Map | null>(null)
+  const loaded = ref(false)
+
+  let control
+  let options
 
   onMounted(() => {
     map.value = inject('getMap').value
@@ -53,18 +64,19 @@
       return
     }
 
-    const control =
+    control =
       new app.appContext.config.globalProperties.$_azureMaps.atlas.control.CompassControl(
         {
           rotationDegreesDelta: props.rotationDegreesDelta,
           style: props.controlStyle,
-        }
+        } as CompassControlOptions
       )
 
-    const options = getOptionsFromProps<atlas.ControlOptions>({
+    options = getOptionsFromProps<atlas.ControlOptions>({
       position: props.position,
     } as atlas.ControlOptions)
-    map.value.controls.add(control, options)
+
+    loaded.value = true
   })
 </script>
 
