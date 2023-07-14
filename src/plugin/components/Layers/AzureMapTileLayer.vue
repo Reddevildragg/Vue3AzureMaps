@@ -11,10 +11,10 @@
     PropType,
     useAttrs,
   } from 'vue'
-  import { AzureMapPolygonLayerEvent } from '@/plugin/types/enums.ts'
+  import { AzureMapTileLayerEvent } from '@/plugin/types/enums.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
 
-  const emit = defineEmits([AzureMapPolygonLayerEvent.Created])
+  const emit = defineEmits([AzureMapTileLayerEvent.Created])
 
   const attrs = useAttrs()
   const currentInstance = getCurrentInstance()
@@ -22,7 +22,7 @@
   const state = ref(0)
   const map = ref<atlas.Map | null>(null)
   const dataSource = ref<atlas.source.DataSource | null>(null)
-  const polygonLayer = ref<atlas.layer.PolygonLayer>(null)
+  const tileLayer = ref<atlas.layer.TileLayer>(null)
 
   const props = defineProps({
     id: {
@@ -31,10 +31,11 @@
     },
 
     options: {
-      type: Object as PropType<atlas.PolygonLayerOptions | null>,
+      type: Object as PropType<atlas.TileLayerOptions | null>,
       default: null,
     },
   })
+
   onMounted(() => {
     dataSource.value = inject('getDataSource').value
     map.value = inject('getMap').value
@@ -44,26 +45,25 @@
     }
 
     // Create the polygon layer
-    polygonLayer.value =
-      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.PolygonLayer(
-        dataSource,
-        props.id || `azure-map-polygon-layer-${state.value++}`,
-        props.options || undefined
+    tileLayer.value =
+      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.TileLayer(
+        props.options || undefined,
+        props.id || `azure-map-polygon-layer-${state.value++}`
       )
 
-    emit(AzureMapPolygonLayerEvent.Created, polygonLayer.value)
-    map.value?.layers.add(polygonLayer.value)
+    emit(AzureMapTileLayerEvent.Created, tileLayer.value)
+    map.value?.layers.add(tileLayer.value)
 
     addMapEventListeners({
       map: map.value,
-      target: polygonLayer.value,
+      target: tileLayer.value,
       listeners: attrs,
-      reservedEventTypes: Object.values(AzureMapPolygonLayerEvent),
+      reservedEventTypes: Object.values(AzureMapTileLayerEvent),
     })
   })
 
   onUnmounted(() => {
-    map.value?.layers.remove(polygonLayer.value)
+    map.value?.layers.remove(tileLayer.value)
   })
 </script>
 

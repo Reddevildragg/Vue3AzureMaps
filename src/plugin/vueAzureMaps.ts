@@ -1,12 +1,8 @@
 import * as atlasJs from 'azure-maps-control/dist/atlas.min.js'
-import { assert } from './utils/warn'
 import atlas from 'azure-maps-control'
 
 import { App, Plugin } from 'vue'
-
-export interface VueAzureMapsPluginOptions {
-  key: string
-}
+import { VueAzureMapsPluginOptions } from '@/plugin/types'
 
 export let VueWithPlugin: App
 
@@ -27,6 +23,7 @@ export const VueAzureMaps: Plugin = {
     )
   },
 }
+
 export default VueAzureMaps
 
 export class VueAzureMapsData {
@@ -36,21 +33,6 @@ export class VueAzureMapsData {
   public readonly atlas: typeof atlas
 
   constructor(lib: typeof atlas, options?: VueAzureMapsPluginOptions) {
-    if (import.meta.env.NODE_ENV !== 'production') {
-      assert(
-        VueWithPlugin,
-        `must call Vue.use(VueAzureMaps) before using Azure Maps components.`
-      )
-      assert(
-        typeof Promise !== 'undefined',
-        `vue-azure-maps requires a Promise polyfill in this browser.`
-      )
-      assert(
-        this instanceof VueAzureMapsData,
-        `VueAzureMaps must be called with the new operator.`
-      )
-    }
-
     if (!options) options = { key: '' }
     this.options = options
     this.key = options.key

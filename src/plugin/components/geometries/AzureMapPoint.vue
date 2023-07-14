@@ -11,7 +11,7 @@
     ref,
   } from 'vue'
   import atlas, { Shape } from 'azure-maps-control'
-  import { AzureMapPointEvent } from '@/plugin/enums.ts'
+  import { AzureMapPointEvent } from '@/plugin/types/enums.ts'
 
   const emit = defineEmits([
     AzureMapPointEvent.GeometryCreated,
@@ -69,7 +69,7 @@
       new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.Shape(
         point,
         props.id || `azure-map-point-${state.value}`,
-        props.properties
+        props?.properties
       )
 
     emit(AzureMapPointEvent.ShapeCreated, shape)
@@ -79,6 +79,7 @@
     }
 
     dataSource.value?.add(shape)
+    console.log('Added')
   })
 
   onUnmounted(() => {

@@ -7,7 +7,7 @@ export interface MapEventListenersConfig {
   reservedEventTypes?: string[]
 }
 
-function addMapEventListeners({
+export default function addMapEventListeners({
   map,
   listeners,
   target,
@@ -52,5 +52,3 @@ function addMapEventListeners({
 
   return () => mapListeners.forEach((removeListener) => removeListener())
 }
-
-export default addMapEventListeners

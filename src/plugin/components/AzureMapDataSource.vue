@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-  import getOptionsFromProps from '@/plugin/utils/get-options-from-props'
+  import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
   import Vue, {
     computed,
     getCurrentInstance,

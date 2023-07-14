@@ -11,10 +11,10 @@
     PropType,
     useAttrs,
   } from 'vue'
-  import { AzureMapPolygonLayerEvent } from '@/plugin/types/enums.ts'
+  import { AzureMapLineLayerEvent } from '@/plugin/types/enums.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
 
-  const emit = defineEmits([AzureMapPolygonLayerEvent.Created])
+  const emit = defineEmits([AzureMapLineLayerEvent.Created])
 
   const attrs = useAttrs()
   const currentInstance = getCurrentInstance()
@@ -22,7 +22,7 @@
   const state = ref(0)
   const map = ref<atlas.Map | null>(null)
   const dataSource = ref<atlas.source.DataSource | null>(null)
-  const polygonLayer = ref<atlas.layer.PolygonLayer>(null)
+  const lineLayer = ref<atlas.layer.LineLayer>(null)
 
   const props = defineProps({
     id: {
@@ -31,7 +31,7 @@
     },
 
     options: {
-      type: Object as PropType<atlas.PolygonLayerOptions | null>,
+      type: Object as PropType<atlas.LineLayerOptions | null>,
       default: null,
     },
   })
@@ -44,26 +44,26 @@
     }
 
     // Create the polygon layer
-    polygonLayer.value =
-      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.PolygonLayer(
+    lineLayer.value =
+      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.LineLayer(
         dataSource,
-        props.id || `azure-map-polygon-layer-${state.value++}`,
+        props.id || `azure-map-line-layer-${state.value++}`,
         props.options || undefined
       )
 
-    emit(AzureMapPolygonLayerEvent.Created, polygonLayer.value)
-    map.value?.layers.add(polygonLayer.value)
+    emit(AzureMapLineLayerEvent.Created, lineLayer.value)
+    map.value?.layers.add(lineLayer.value)
 
     addMapEventListeners({
       map: map.value,
-      target: polygonLayer.value,
+      target: lineLayer.value,
       listeners: attrs,
-      reservedEventTypes: Object.values(AzureMapPolygonLayerEvent),
+      reservedEventTypes: Object.values(AzureMapLineLayerEvent),
     })
   })
 
   onUnmounted(() => {
-    map.value?.layers.remove(polygonLayer.value)
+    map.value?.layers.remove(lineLayer.value)
   })
 </script>
 

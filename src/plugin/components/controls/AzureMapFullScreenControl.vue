@@ -12,7 +12,7 @@
     Ref,
     ref,
   } from 'vue'
-  import getOptionsFromProps from '@/plugin/utils/get-options-from-props.ts'
+  import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
   import { FullscreenControl } from '@/plugin/modules/controls/fullscreen.ts'
   import AzureMapControl from '@/plugin/components/controls/AzureMapControl.vue'
 

@@ -1,14 +1,14 @@
 import 'azure-maps-control/dist/atlas.min.css'
 
-import VueAzureMaps from './vue-azure-maps'
+import VueAzureMaps from './vueAzureMaps.ts'
 
 //===
 // Components
 //===
 import AzureMap from './components/AzureMap.vue'
 import AzureMapDataSource from './components/AzureMapDataSource.vue'
-//import AzureMapHtmlMarker from './components/AzureMapHtmlMarker.vue'
-//import AzureMapPopup from './components/AzureMapPopup.vue'
+import AzureMapHtmlMarker from './components/AzureMapHtmlMarker.vue'
+import AzureMapPopup from './components/AzureMapPopup.vue'
 
 //===
 // Control components
@@ -24,6 +24,9 @@ import AzureMapCompassControl from './components/controls/AzureMapCompassControl
 //===
 import AzureMapFullscreenControl from './components/controls/AzureMapFullscreenControl.vue'
 import AzureMapGeolocationControl from './components/controls/AzureMapGeolocationControl.vue'
+import AzureMapUserPosition from './components/AzureMapUserPosition.vue'
+import AzureMapImageSpriteIcon from './components/AzureMapImageSpriteIcon.vue'
+import AzureMapSpiderClusterManager from './components/AzureMapSpiderClusterManager.vue'
 
 //===
 // Geometry components
@@ -37,31 +40,17 @@ import AzureMapPolygon from './components/geometries/AzureMapPolygon.vue'
 // Layer components
 //===
 import AzureMapSymbolLayer from './components/layers/AzureMapSymbolLayer.vue'
-import AzureMapPolygonLayer from './components/layers/AzureMapPolygonLayer.vue'
-
-/*
-//===
-// Custom components
-//===
-import AzureMapUserPosition from './components/AzureMapUserPosition.vue'
-import AzureMapImageSpriteIcon from './components/AzureMapImageSpriteIcon.vue'
-import AzureMapSpiderClusterManager from './components/AzureMapSpiderClusterManager.vue'
-
-
-//===
-// Layer components
-//===
-import AzureMapSymbolLayer from './components/layers/AzureMapSymbolLayer.vue'
 import AzureMapLineLayer from './components/layers/AzureMapLineLayer.vue'
+import AzureMapPolygonLayer from './components/layers/AzureMapPolygonLayer.vue'
 import AzureMapHeatMapLayer from './components/layers/AzureMapHeatMapLayer.vue'
 import AzureMapImageLayer from './components/layers/AzureMapImageLayer.vue'
 import AzureMapTileLayer from './components/layers/AzureMapTileLayer.vue'
 import AzureMapBubbleLayer from './components/layers/AzureMapBubbleLayer.vue'
-*/
 
 export {
   AzureMap,
   AzureMapDataSource,
+  AzureMapControl,
   AzureMapZoomControl,
   AzureMapPitchControl,
   AzureMapStyleControl,
@@ -69,29 +58,21 @@ export {
   AzureMapFullscreenControl,
   AzureMapGeolocationControl,
   AzureMapPoint,
-  AzureMapSymbolLayer,
   AzureMapCircle,
-  AzureMapPolygonLayer,
-  AzureMapLineString,
-  AzureMapPolygon,
-  /*
-  AzureMapHtmlMarker,
-  AzureMapPopup,
-  AzureMapUserPosition,
-  AzureMapImageSpriteIcon,
-  AzureMapSpiderClusterManager,
-
-  AzureMapCircle,
-  AzureMapLineString,
-  AzureMapPolygon,
-  AzureMapControl,
   AzureMapSymbolLayer,
   AzureMapPolygonLayer,
   AzureMapLineLayer,
   AzureMapHeatMapLayer,
   AzureMapImageLayer,
   AzureMapTileLayer,
-  AzureMapBubbleLayer,*/
+  AzureMapBubbleLayer,
+  AzureMapLineString,
+  AzureMapPolygon,
+  AzureMapUserPosition,
+  AzureMapImageSpriteIcon,
+  AzureMapSpiderClusterManager,
+  AzureMapHtmlMarker,
+  AzureMapPopup,
 }
 
 export default VueAzureMaps

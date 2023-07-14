@@ -1,4 +1,4 @@
-function getOptionsFromProps<T>({
+export default function getOptionsFromProps<T>({
   props,
   excludedPropKeys = [],
   reservedAttributes = {},
@@ -35,5 +35,3 @@ export interface OptionsFromPropsConfig {
   excludedPropKeys?: string[]
   reservedAttributes?: Record<string, string>
 }
-
-export default getOptionsFromProps

@@ -7,13 +7,13 @@
 </template>
 
 <script lang="ts" setup>
-  import getOptionsFromProps from '@/plugin/utils/get-options-from-props'
-  import addMapEventListeners from '@/plugin/utils/add-map-event-listeners'
+  import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
+  import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
   import { onMounted, onUnmounted, PropType, provide, ref } from 'vue'
   import { getCurrentInstance } from 'vue'
   import { useAttrs } from 'vue'
   import atlas from 'azure-maps-control'
-  import { AzureMapEvent } from '@/plugin/enums.ts'
+  import { AzureMapEvent } from '@/plugin/types/enums.ts'
 
   const attrs = useAttrs()
   const app = getCurrentInstance()

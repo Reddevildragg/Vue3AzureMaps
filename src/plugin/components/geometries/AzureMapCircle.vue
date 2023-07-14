@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
   import { computed } from 'vue'
-  import { AzureMapPointEvent } from '@/plugin/enums.ts'
+  import { AzureMapPointEvent } from '@/plugin/types/enums.ts'
   import { AzureMapPoint } from '@/plugin'
 
   const props = defineProps({

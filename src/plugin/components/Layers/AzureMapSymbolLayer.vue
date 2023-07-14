@@ -8,17 +8,20 @@
     onUnmounted,
     PropType,
     ref,
+    useAttrs,
   } from 'vue'
   import atlas from 'azure-maps-control'
-  import { AzureMapSymbolLayerEvent } from '@/plugin/enums.ts'
+  import { AzureMapSymbolLayerEvent } from '@/plugin/types/enums.ts'
+  import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
 
   const emit = defineEmits([AzureMapSymbolLayerEvent.Created])
 
   const state = ref(0)
   const app = getCurrentInstance()
 
-  const map = ref<atlas.Map | null>(null)
-  const dataSource = ref<atlas.source.DataSource | null>(null)
+  const attrs = useAttrs()
+  const map = inject('getMap') // ref<atlas.Map | null>(null)
+  const dataSource = inject('getDataSource') // ref<atlas.source.DataSource | null>(null)
   const symbolLayer = ref<atlas.layer.SymbolLayer>(null)
 
   const props = defineProps({
@@ -34,9 +37,6 @@
   })
 
   onMounted(() => {
-    dataSource.value = inject('getDataSource').value
-    map.value = inject('getMap').value
-
     // Create the symbol layer
     symbolLayer.value =
       new app.appContext.config.globalProperties.$_azureMaps.atlas.layer.SymbolLayer(
@@ -47,11 +47,18 @@
 
     emit(AzureMapSymbolLayerEvent.Created, symbolLayer.value)
 
-    map.value.layers.add(symbolLayer.value)
+    map.value?.layers.add(symbolLayer.value)
+
+    addMapEventListeners({
+      map: map.value,
+      target: symbolLayer.value,
+      listeners: attrs,
+      reservedEventTypes: Object.values(AzureMapSymbolLayerEvent),
+    })
   })
 
   onUnmounted(() => {
-    map.value.layers.remove(symbolLayer.value)
+    map.value?.layers.remove(symbolLayer.value)
   })
 </script>
 

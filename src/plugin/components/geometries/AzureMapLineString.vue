@@ -15,7 +15,7 @@
     ControlStyle,
     Shape,
   } from 'azure-maps-control'
-  import { AzureMapPointEvent } from '@/plugin/enums.ts'
+  import { AzureMapPointEvent } from '@/plugin/types/enums.ts'
 
   const currentInstance = getCurrentInstance()
   const state = ref(0)

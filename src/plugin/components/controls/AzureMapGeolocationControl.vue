@@ -5,7 +5,7 @@
 <script setup lang="ts">
   import atlas, { ControlPosition, ControlStyle } from 'azure-maps-control'
   import { inject, onMounted, PropType, getCurrentInstance, ref } from 'vue'
-  import getOptionsFromProps from '@/plugin/utils/get-options-from-props.ts'
+  import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
   import { GeolocationControl } from '@/plugin/modules/controls/geolocation.ts'
   import AzureMapControl from '@/plugin/components/controls/AzureMapControl.vue'
   const app = getCurrentInstance()
