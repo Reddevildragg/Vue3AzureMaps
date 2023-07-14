@@ -6,9 +6,17 @@
     ControlStyle,
     ZoomControlOptions,
   } from 'azure-maps-control'
-  import { inject, onMounted, PropType, getCurrentInstance, Ref } from 'vue'
+  import {
+    inject,
+    onMounted,
+    PropType,
+    getCurrentInstance,
+    Ref,
+    ref,
+  } from 'vue'
   import getOptionsFromProps from '@/plugin/utils/get-options-from-props.ts'
   const app = getCurrentInstance()
+  const map = ref<atlas.Map | null>(null)
 
   const props = defineProps({
     /**
@@ -43,8 +51,7 @@
   })
 
   onMounted(() => {
-    const map: Ref<atlas.Map | null> | undefined = inject('getMap')
-
+    map.value = inject('getMap').value
     if (!map?.value || !app) {
       return
     }

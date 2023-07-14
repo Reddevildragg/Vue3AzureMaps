@@ -13,10 +13,7 @@
   import { getCurrentInstance } from 'vue'
   import { useAttrs } from 'vue'
   import atlas from 'azure-maps-control'
-
-  enum AzureMapEvent {
-    Ready = 'ready',
-  }
+  import { AzureMapEvent } from '@/plugin/enums.ts'
 
   const attrs = useAttrs()
   const app = getCurrentInstance()

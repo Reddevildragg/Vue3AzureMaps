@@ -6,7 +6,7 @@ import VueAzureMaps from './vue-azure-maps'
 // Components
 //===
 import AzureMap from './components/AzureMap.vue'
-//import AzureMapDataSource from './components/AzureMapDataSource.vue'
+import AzureMapDataSource from './components/AzureMapDataSource.vue'
 //import AzureMapHtmlMarker from './components/AzureMapHtmlMarker.vue'
 //import AzureMapPopup from './components/AzureMapPopup.vue'
 
@@ -24,6 +24,17 @@ import AzureMapCompassControl from './components/controls/AzureMapCompassControl
 //===
 import AzureMapFullscreenControl from './components/controls/AzureMapFullscreenControl.vue'
 import AzureMapGeolocationControl from './components/controls/AzureMapGeolocationControl.vue'
+
+//===
+// Geometry components
+//===
+import AzureMapPoint from './components/geometries/AzureMapPoint.vue'
+import AzureMapCircle from './components/geometries/AzureMapCircle.vue'
+
+//===
+// Layer components
+//===
+import AzureMapSymbolLayer from './components/layers/AzureMapSymbolLayer.vue'
 
 /*
 //===
@@ -55,20 +66,23 @@ import AzureMapPolygon from './components/geometries/AzureMapPolygon.vue'*/
 
 export {
   AzureMap,
+  AzureMapDataSource,
   AzureMapZoomControl,
   AzureMapPitchControl,
   AzureMapStyleControl,
   AzureMapCompassControl,
   AzureMapFullscreenControl,
   AzureMapGeolocationControl,
-
-  /*  AzureMapDataSource,
+  AzureMapPoint,
+  AzureMapSymbolLayer,
+  AzureMapCircle,
+  /*
   AzureMapHtmlMarker,
   AzureMapPopup,
   AzureMapUserPosition,
   AzureMapImageSpriteIcon,
   AzureMapSpiderClusterManager,
-  AzureMapPoint,
+
   AzureMapCircle,
   AzureMapLineString,
   AzureMapPolygon,
