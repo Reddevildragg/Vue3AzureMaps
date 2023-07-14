@@ -10,11 +10,7 @@
     PropType,
     ref,
   } from 'vue'
-  import atlas, {
-    ControlPosition,
-    ControlStyle,
-    Shape,
-  } from 'azure-maps-control'
+  import atlas, { Shape } from 'azure-maps-control'
   import { AzureMapPointEvent } from '@/plugin/enums.ts'
 
   const emit = defineEmits([

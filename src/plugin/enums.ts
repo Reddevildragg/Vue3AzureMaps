@@ -16,3 +16,7 @@ export enum AzureMapSymbolLayerEvent {
 enum AzureMapLineStringEvents {
   Error = 'error',
 }
+
+export enum AzureMapPolygonLayerEvent {
+  Created = 'created',
+}

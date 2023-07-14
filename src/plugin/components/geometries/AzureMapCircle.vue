@@ -1,12 +1,13 @@
 <template>
   <azure-map-point
-    :v-bind:="updatedProps"
+    v-bind="updatedProps"
     @[circleEventName]="$emit(circleEventName, $event)" />
 </template>
 
 <script setup lang="ts">
   import { computed } from 'vue'
   import { AzureMapPointEvent } from '@/plugin/enums.ts'
+  import { AzureMapPoint } from '@/plugin'
 
   const props = defineProps({
     /**
@@ -22,13 +23,15 @@
     return {
       ...props,
       ...{
-        subType: 'Circle',
-        radius: props.radius,
+        properties: {
+          subType: 'Circle',
+          radius: props.radius,
+        },
       },
     }
   })
 
-  const circleEventName = AzureMapPointEvent.CircleCoordinates
+  const circleEventName = computed(() => AzureMapPointEvent.CircleCoordinates)
 </script>
 
 <style scoped lang="scss"></style>

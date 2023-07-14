@@ -30,11 +30,14 @@ import AzureMapGeolocationControl from './components/controls/AzureMapGeolocatio
 //===
 import AzureMapPoint from './components/geometries/AzureMapPoint.vue'
 import AzureMapCircle from './components/geometries/AzureMapCircle.vue'
+import AzureMapLineString from './components/geometries/AzureMapLineString.vue'
+import AzureMapPolygon from './components/geometries/AzureMapPolygon.vue'
 
 //===
 // Layer components
 //===
 import AzureMapSymbolLayer from './components/layers/AzureMapSymbolLayer.vue'
+import AzureMapPolygonLayer from './components/layers/AzureMapPolygonLayer.vue'
 
 /*
 //===
@@ -49,20 +52,12 @@ import AzureMapSpiderClusterManager from './components/AzureMapSpiderClusterMana
 // Layer components
 //===
 import AzureMapSymbolLayer from './components/layers/AzureMapSymbolLayer.vue'
-import AzureMapPolygonLayer from './components/layers/AzureMapPolygonLayer.vue'
 import AzureMapLineLayer from './components/layers/AzureMapLineLayer.vue'
 import AzureMapHeatMapLayer from './components/layers/AzureMapHeatMapLayer.vue'
 import AzureMapImageLayer from './components/layers/AzureMapImageLayer.vue'
 import AzureMapTileLayer from './components/layers/AzureMapTileLayer.vue'
 import AzureMapBubbleLayer from './components/layers/AzureMapBubbleLayer.vue'
-
-//===
-// Geometry components
-//===
-import AzureMapPoint from './components/geometries/AzureMapPoint.vue'
-import AzureMapCircle from './components/geometries/AzureMapCircle.vue'
-import AzureMapLineString from './components/geometries/AzureMapLineString.vue'
-import AzureMapPolygon from './components/geometries/AzureMapPolygon.vue'*/
+*/
 
 export {
   AzureMap,
@@ -76,6 +71,9 @@ export {
   AzureMapPoint,
   AzureMapSymbolLayer,
   AzureMapCircle,
+  AzureMapPolygonLayer,
+  AzureMapLineString,
+  AzureMapPolygon,
   /*
   AzureMapHtmlMarker,
   AzureMapPopup,

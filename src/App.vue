@@ -19,10 +19,10 @@
       <!-- Create a Data Source -->
       <AzureMapDataSource v-if="points">
         <AzureMapCircle
-          v-if="points.length > 0"
-          :longitude="points[0].longitude"
-          :latitude="points[0].latitude"
-          :radius="1000" />
+          v-for="point in points"
+          :longitude="point.longitude"
+          :latitude="point.latitude"
+          :radius="36796" />
 
         <!-- Add Points to the Data Source -->
         <AzureMapPoint
@@ -32,6 +32,7 @@
           :latitude="point.latitude" />
 
         <AzureMapSymbolLayer :options="customIconSymbolLayerOptions" />
+        <AzureMapPolygonLayer :options="userPosition.polygonLayerOptions" />
       </AzureMapDataSource>
     </AzureMap>
   </div>
@@ -50,9 +51,10 @@
     AzureMapPoint,
     AzureMapSymbolLayer,
     AzureMapCircle,
+    AzureMapPolygonLayer,
   } from '@/plugin'
   import atlas from 'azure-maps-control'
-  import { onMounted } from 'vue'
+  import { onMounted, PropType } from 'vue'
 
   type MapOptions = atlas.ServiceOptions &
     atlas.CameraOptions &
@@ -73,6 +75,22 @@
   } as MapOptions
 
   const customIconSymbolLayerOptions = {} as atlas.SymbolLayerOptions
+
+  const userPosition = {
+    symbolLayerOptions: {
+      iconOptions: {
+        image: 'pin-blue',
+      },
+    } as atlas.SymbolLayerOptions,
+    cameraOptions: {
+      zoom: 15,
+    } as atlas.CameraOptions,
+
+    polygonLayerOptions: {
+      fillColor: 'green',
+      opacity: 0.5,
+    } as atlas.PolygonLayerOptions,
+  }
 
   function onMouseDown(e: atlas.MapMouseEvent): void {
     // console.log(e)
