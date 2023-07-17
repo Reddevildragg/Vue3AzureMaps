@@ -13,15 +13,15 @@
   } from 'vue'
   import { AzureMapPolygonLayerEvent } from '@/plugin/types/enums.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
+  import { azureMapStore } from '@/plugin/store/azureMapStore.ts'
 
   const emit = defineEmits([AzureMapPolygonLayerEvent.Created])
 
   const attrs = useAttrs()
   const currentInstance = getCurrentInstance()
 
-  const state = ref(0)
-  const map = ref<atlas.Map | null>(null)
-  const dataSource = ref<atlas.source.DataSource | null>(null)
+  const map = inject('getMap')
+  const dataSource = inject('getDataSource')
   const polygonLayer = ref<atlas.layer.PolygonLayer>(null)
 
   const props = defineProps({
@@ -36,9 +36,6 @@
     },
   })
   onMounted(() => {
-    dataSource.value = inject('getDataSource').value
-    map.value = inject('getMap').value
-
     if (!map?.value || !currentInstance) {
       return
     }
@@ -47,7 +44,7 @@
     polygonLayer.value =
       new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.PolygonLayer(
         dataSource,
-        props.id || `azure-map-polygon-layer-${state.value++}`,
+        props.id || `azure-map-polygon-layer-${azureMapStore.polygonLayerId++}`,
         props.options || undefined
       )
 

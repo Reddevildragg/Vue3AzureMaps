@@ -39,11 +39,9 @@
   ])
 
   const currentInstance = getCurrentInstance()
-  const map = ref<atlas.Map | null>(null)
+  const map = inject('getMap')
 
   onMounted(async () => {
-    map.value = inject('getMap').value
-
     if (!map?.value || !currentInstance) {
       return
     }

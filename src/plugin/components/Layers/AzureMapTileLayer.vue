@@ -13,15 +13,15 @@
   } from 'vue'
   import { AzureMapTileLayerEvent } from '@/plugin/types/enums.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
+  import { azureMapStore } from '@/plugin/store/azureMapStore.ts'
 
   const emit = defineEmits([AzureMapTileLayerEvent.Created])
 
   const attrs = useAttrs()
   const currentInstance = getCurrentInstance()
 
-  const state = ref(0)
-  const map = ref<atlas.Map | null>(null)
-  const dataSource = ref<atlas.source.DataSource | null>(null)
+  const map = inject('getMap')
+  const dataSource = inject('getDataSource')
   const tileLayer = ref<atlas.layer.TileLayer>(null)
 
   const props = defineProps({
@@ -37,9 +37,6 @@
   })
 
   onMounted(() => {
-    dataSource.value = inject('getDataSource').value
-    map.value = inject('getMap').value
-
     if (!map?.value || !currentInstance) {
       return
     }
@@ -48,7 +45,7 @@
     tileLayer.value =
       new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.TileLayer(
         props.options || undefined,
-        props.id || `azure-map-polygon-layer-${state.value++}`
+        props.id || `azure-map-tile-layer-${azureMapStore.tileLayerId++}`
       )
 
     emit(AzureMapTileLayerEvent.Created, tileLayer.value)

@@ -8,8 +8,7 @@
 
 <script setup lang="ts">
   import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
-  import Vue, {
-    computed,
+  import {
     getCurrentInstance,
     inject,
     onMounted,
@@ -17,12 +16,13 @@
     PropType,
     provide,
     ref,
+    watch,
   } from 'vue'
-  import atlas, { DataSourceOptions } from 'azure-maps-control'
+  import atlas from 'azure-maps-control'
+  import { azureMapStore } from '@/plugin/store/azureMapStore.ts'
 
   const app = getCurrentInstance()
-  const state = ref(0)
-  const map = ref<atlas.Map | null>(null)
+  const map = inject('getMap')
   const dataSource = ref<atlas.source.DataSource | null>(null)
 
   provide('getDataSource', dataSource)
@@ -109,14 +109,13 @@
   })
 
   onMounted(() => {
-    map.value = inject('getMap')?.value
     if (!map?.value || !app) {
       return
     }
 
     dataSource.value =
       new app.appContext.config.globalProperties.$_azureMaps.atlas.source.DataSource(
-        props.id || `azure-map-data-source-${state.value}`,
+        props.id || `azure-map-data-source-${azureMapStore.dataSourceId++}`,
         getOptionsFromProps({
           props: props,
         })
@@ -124,6 +123,32 @@
 
     map.value.sources.add(dataSource.value)
   })
+
+  watch(
+    () => [
+      props.maxZoom,
+      props.cluster,
+      props.clusterRadius,
+      props.clusterMaxZoom,
+      props.lineMetrics,
+      props.tolerance,
+      props.clusterProperties,
+    ],
+    () => {
+      dataSource?.value?.setOptions({
+        maxZoom: props.maxZoom,
+        cluster: props.cluster,
+        clusterRadius: props.clusterRadius,
+        clusterMaxZoom: props.clusterMaxZoom,
+        lineMetrics: props.lineMetrics,
+        tolerance: props.tolerance,
+        clusterProperties: props.clusterProperties,
+      })
+    },
+    {
+      deep: true,
+    }
+  )
 
   onUnmounted(() => {
     map.value.sources.remove(dataSource.value)

@@ -14,7 +14,6 @@
     onUnmounted,
     PropType,
     watch,
-    computed,
   } from 'vue'
   import atlas, { PopupOptions } from 'azure-maps-control'
   import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
@@ -97,18 +96,15 @@
     AzureMapPopupEvent.Close,
     AzureMapPopupEvent.Created,
     AzureMapPopupEvent.Update,
-    'update:open',
   ])
 
   const currentInstance = getCurrentInstance()
-  const map = ref<atlas.Map | null>(null)
+  const map = inject('getMap')
   const popup = ref<atlas.Popup>(null)
   const el = ref(null)
   const unmountEvents: Array<() => void> = []
 
   onMounted(async () => {
-    map.value = inject('getMap').value
-
     if (!map?.value || !currentInstance) {
       return
     }
@@ -120,6 +116,7 @@
           excludedPropKeys: ['tag', 'open'],
         }) as PopupOptions
       )
+
     emit(AzureMapPopupEvent.Created, popup.value)
 
     unmountEvents.push(
@@ -141,12 +138,19 @@
       })
     )
 
-    watch(props.open, (newValue, oldValue) => {
-      console.log(open, newValue, oldValue)
-    })
-
-    popup.value?.setOptions(el.value as HTMLElement)
+    popup.value?.setOptions({ content: el.value as HTMLElement })
   })
+
+  watch(
+    () => props.open,
+    (newValue, oldValue) => {
+      if (newValue) {
+        popup.value?.open(map.value)
+      } else {
+        popup.value?.close()
+      }
+    }
+  )
 
   onUnmounted(() => {
     popup.value?.remove()

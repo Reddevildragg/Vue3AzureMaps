@@ -100,12 +100,10 @@
 
   const attrs = useAttrs()
   const currentInstance = getCurrentInstance()
-  const map = ref<atlas.Map | null>(null)
+  const map = inject('getMap')
   let marker
 
   onMounted(() => {
-    map.value = inject('getMap').value
-
     if (!map?.value || !currentInstance) {
       return
     }

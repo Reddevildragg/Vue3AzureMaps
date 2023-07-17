@@ -16,11 +16,11 @@
     Shape,
   } from 'azure-maps-control'
   import { AzureMapPointEvent } from '@/plugin/types/enums.ts'
+  import { azureMapStore } from '@/plugin/store/azureMapStore.ts'
 
   const currentInstance = getCurrentInstance()
-  const state = ref(0)
-  const map = ref<atlas.Map | null>(null)
-  const dataSource = ref<atlas.source.DataSource | null>(null)
+  const map = inject('getMap')
+  const dataSource = inject('getDataSource')
 
   let shape: Shape
   const props = defineProps({
@@ -39,9 +39,6 @@
   })
 
   onMounted(() => {
-    dataSource.value = inject('getDataSource').value
-    map.value = inject('getMap').value
-
     if (!map?.value || !currentInstance) {
       return
     }
@@ -52,7 +49,7 @@
         new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.data.LineString(
           props.coordinates || []
         ),
-        props.id || `azure-map-line-string-${state.value}`,
+        props.id || `azure-map-line-string-${azureMapStore.lineStringId}`,
         props.properties
       )
 

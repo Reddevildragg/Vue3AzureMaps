@@ -13,14 +13,14 @@
   import atlas from 'azure-maps-control'
   import { AzureMapSymbolLayerEvent } from '@/plugin/types/enums.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
+  import { azureMapStore } from '@/plugin/store/azureMapStore.ts'
 
   const emit = defineEmits([AzureMapSymbolLayerEvent.Created])
 
-  const state = ref(0)
   const app = getCurrentInstance()
 
   const attrs = useAttrs()
-  const map = inject('getMap') // ref<atlas.Map | null>(null)
+  const map = inject('getMap')
   const dataSource = inject('getDataSource') // ref<atlas.source.DataSource | null>(null)
   const symbolLayer = ref<atlas.layer.SymbolLayer>(null)
 
@@ -41,7 +41,7 @@
     symbolLayer.value =
       new app.appContext.config.globalProperties.$_azureMaps.atlas.layer.SymbolLayer(
         dataSource,
-        props.id || `azure-map-symbol-layer-${state.value}`,
+        props.id || `azure-map-symbol-layer-${azureMapStore.symbolLayerId++}`,
         props.options || undefined
       )
 

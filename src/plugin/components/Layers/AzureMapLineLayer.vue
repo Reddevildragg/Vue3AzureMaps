@@ -13,15 +13,15 @@
   } from 'vue'
   import { AzureMapLineLayerEvent } from '@/plugin/types/enums.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
+  import { azureMapStore } from '@/plugin/store/azureMapStore.ts'
 
   const emit = defineEmits([AzureMapLineLayerEvent.Created])
 
   const attrs = useAttrs()
   const currentInstance = getCurrentInstance()
 
-  const state = ref(0)
-  const map = ref<atlas.Map | null>(null)
-  const dataSource = ref<atlas.source.DataSource | null>(null)
+  const map = inject('getMap')
+  const dataSource = inject('getDataSource')
   const lineLayer = ref<atlas.layer.LineLayer>(null)
 
   const props = defineProps({
@@ -36,9 +36,6 @@
     },
   })
   onMounted(() => {
-    dataSource.value = inject('getDataSource').value
-    map.value = inject('getMap').value
-
     if (!map?.value || !currentInstance) {
       return
     }
@@ -47,7 +44,7 @@
     lineLayer.value =
       new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.LineLayer(
         dataSource,
-        props.id || `azure-map-line-layer-${state.value++}`,
+        props.id || `azure-map-line-layer-${azureMapStore.lineLayerId++}`,
         props.options || undefined
       )
 

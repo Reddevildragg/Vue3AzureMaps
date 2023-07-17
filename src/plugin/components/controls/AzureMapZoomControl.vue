@@ -16,10 +16,11 @@
     Ref,
     ref,
   } from 'vue'
+
   import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
   import AzureMapControl from '@/plugin/components/controls/AzureMapControl.vue'
   const app = getCurrentInstance()
-  const map = ref<atlas.Map | null>(null)
+  const map = inject('getMap')
   const loaded = ref(false)
 
   let control
@@ -57,7 +58,6 @@
   })
 
   onMounted(() => {
-    map.value = inject('getMap').value
     if (!map?.value || !app) {
       return
     }

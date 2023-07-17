@@ -9,9 +9,11 @@
     onUnmounted,
     PropType,
     ref,
+    reactive,
   } from 'vue'
   import atlas, { Shape } from 'azure-maps-control'
   import { AzureMapPointEvent } from '@/plugin/types/enums.ts'
+  import { azureMapStore } from '@/plugin/store/azureMapStore.ts'
 
   const emit = defineEmits([
     AzureMapPointEvent.GeometryCreated,
@@ -21,9 +23,8 @@
   ])
 
   const currentInstance = getCurrentInstance()
-  const state = ref(0)
-  const map = ref<atlas.Map | null>(null)
-  const dataSource = ref<atlas.source.DataSource | null>(null)
+  const map = inject('getMap')
+  const dataSource = inject('getDataSource')
   let shape: Shape
   const props = defineProps({
     id: {
@@ -49,9 +50,6 @@
   })
 
   onMounted(() => {
-    dataSource.value = inject('getDataSource').value
-    map.value = inject('getMap').value
-
     if (!map?.value || !currentInstance) {
       return
     }
@@ -68,7 +66,7 @@
     shape =
       new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.Shape(
         point,
-        props.id || `azure-map-point-${state.value}`,
+        props.id || `azure-map-point-${azureMapStore.mapPointId++}`,
         props?.properties
       )
 
@@ -79,7 +77,6 @@
     }
 
     dataSource.value?.add(shape)
-    console.log('Added')
   })
 
   onUnmounted(() => {

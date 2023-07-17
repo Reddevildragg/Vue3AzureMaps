@@ -51,15 +51,13 @@
       default: ControlStyle.light,
     },
   })
-  const map = ref<atlas.Map | null>(null)
+  const map = inject('getMap')
   const loaded = ref(false)
 
   let control
   let options
 
   onMounted(() => {
-    map.value = inject('getMap').value
-
     if (!map?.value || !app) {
       return
     }

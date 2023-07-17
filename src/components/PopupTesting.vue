@@ -23,28 +23,26 @@
           @mouseleave="onMouseLeave"
           @mousedown="onMouseDown" />
 
-        <AzureMapPoint
-          v-for="point in points"
-          :key="point.properties.name"
-          :longitude="point.longitude"
-          :latitude="point.latitude"
-          :properties="point.properties" />
+        <template v-for="point in points" :key="point.properties.name">
+          <AzureMapPoint
+            :longitude="point.longitude"
+            :latitude="point.latitude"
+            :properties="point.properties" />
 
-        <AzureMapPopup
-          v-for="point in points"
-          :key="`Popup-${point.properties.name}`"
-          :open="point.properties.isPopupOpen"
-          :position="[point.longitude, point.latitude]"
-          :pixel-offset="[0, -18]"
-          :close-button="false"
-          class="AzureMapPopup">
-          <p>
-            <strong>{{ point.properties.name }}</strong>
-          </p>
-          <p>
-            {{ point.properties.description }}
-          </p>
-        </AzureMapPopup>
+          <AzureMapPopup
+            :open="point.properties.isPopupOpen"
+            :position="[point.longitude, point.latitude]"
+            :pixel-offset="[0, -20]"
+            :close-button="false"
+            class="AzureMapPopup">
+            <p>
+              <strong>{{ point.properties.name }}</strong>
+            </p>
+            <p>
+              {{ point.properties.description }}
+            </p>
+          </AzureMapPopup>
+        </template>
       </AzureMapDataSource>
     </AzureMap>
   </div>
@@ -77,7 +75,7 @@
     language: 'en-US',
   } as MapOptions
 
-  const points: Array<CustomPoint> = generateMockPoints(1)
+  const points: Array<CustomPoint> = ref(generateMockPoints(5))
 
   const symbolLayerOptions = {
     iconOptions: {
@@ -91,9 +89,11 @@
   const selectedShape = ref()
 
   function onMouseEnter(e: atlas.MapMouseEvent) {
+    console.log('e', e)
     if (e.shapes && e.shapes.length > 0) {
       // Capture the selected shape.
       selectedShape.value = e.shapes[0] as atlas.Shape
+
       // Check if the point is in our data
       const point = getCustomPointByName(
         selectedShape.value.getProperties().name
@@ -120,7 +120,6 @@
   }
 
   function onMouseDown(e: atlas.MapMouseEvent) {
-    console.log(selectedPoint.value)
     if (e.shapes && e.shapes.length > 0) {
       // Capture the selected shape.
       selectedShape.value = e.shapes[0] as atlas.Shape
@@ -141,8 +140,13 @@
   }
 
   function getCustomPointByName(name: string): CustomPoint | undefined {
-    return points.find((p) => p.properties.name === name)
+    return points.value.find((p) => p.properties.name === name)
   }
 </script>
 
-<style scoped></style>
+<style scoped>
+  .AzureMapPopup {
+    max-width: 200px;
+    padding: 1rem;
+  }
+</style>

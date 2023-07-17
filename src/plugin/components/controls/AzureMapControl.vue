@@ -15,10 +15,9 @@
       default: null,
     },
   })
-  const map = ref<atlas.Map | null>(null)
+  const map = inject('getMap')
 
   onMounted(() => {
-    map.value = inject('getMap').value
     if (!map?.value) {
       return
     }

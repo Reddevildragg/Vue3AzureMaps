@@ -13,15 +13,15 @@
   } from 'vue'
   import { AzureMapBubbleLayerEvent } from '@/plugin/types/enums.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
+  import { azureMapStore } from '@/plugin/store/azureMapStore.ts'
 
   const emit = defineEmits([AzureMapBubbleLayerEvent.Created])
 
   const attrs = useAttrs()
   const currentInstance = getCurrentInstance()
 
-  const state = ref(0)
-  const map = ref<atlas.Map | null>(null)
-  const dataSource = ref<atlas.source.DataSource | null>(null)
+  const map = inject('getMap')
+  const dataSource = inject('getDataSource')
   const bubbleLayer = ref<atlas.layer.BubbleLayer>(null)
 
   const props = defineProps({
@@ -37,9 +37,6 @@
   })
 
   onMounted(() => {
-    dataSource.value = inject('getDataSource').value
-    map.value = inject('getMap').value
-
     if (!map?.value || !currentInstance) {
       return
     }
@@ -48,7 +45,7 @@
     bubbleLayer.value =
       new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.BubbleLayer(
         dataSource,
-        props.id || `azure-map-bubble-layer-${state.value++}`,
+        props.id || `azure-map-bubble-layer-${azureMapStore.bubbleLayerId++}`,
         props.options || undefined
       )
 
