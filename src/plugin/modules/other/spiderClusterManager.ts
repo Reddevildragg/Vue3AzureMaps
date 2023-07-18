@@ -80,10 +80,8 @@ export class SpiderClusterManager {
   private _spiderLineLayer: atlas.layer.LineLayer
   private _hoverStateId: string | null = null
   private _spiderDatasourceId: string
-  private _currentCluster: atlas.data.Feature<
-    atlas.data.Point,
-    any
-  > | null = null
+  private _currentCluster: atlas.data.Feature<atlas.data.Point, any> | null =
+    null
 
   private _options: ISpiderClusterOptions = {
     circleSpiralSwitchover: 6,
@@ -193,6 +191,7 @@ export class SpiderClusterManager {
       this._unhighlightStick
     )
     map.events.add('mousemove', this._spiderFeatureLayer, this._highlightStick)
+    map.events.add('click', this._layerClickEvent)
     map.events.add('click', this._clusterLayer, this._layerClickEvent)
     map.events.add('click', this._spiderFeatureLayer, this._layerClickEvent)
     map.events.add('click', this._unclustedLayer, this._layerClickEvent)
@@ -330,7 +329,7 @@ export class SpiderClusterManager {
           this._options.maxFeaturesInWeb as number,
           0
         )
-        .then(children => {
+        .then((children) => {
           //Create spider data.
           var center = cluster.geometry.coordinates
           var centerPoint = this._map.positionsToPixels([center])[0]
@@ -458,7 +457,7 @@ export class SpiderClusterManager {
         if (prop.point_count > (this._options.maxFeaturesInWeb as number)) {
           this._datasource
             .getClusterExpansionZoom(prop.cluster_id)
-            .then(zoom => {
+            .then((zoom) => {
               this._map.setCamera({
                 center: pos,
                 zoom: zoom,
@@ -475,6 +474,10 @@ export class SpiderClusterManager {
             atlas.data.Point,
             any
           > | null) = null
+
+          if (this._options.featureUnselected) {
+            this._options.featureUnselected()
+          }
         }
 
         if (this._options.featureSelected && s) {
