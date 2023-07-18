@@ -5,7 +5,8 @@
       :language="mapOptions.language"
       :map-style="mapOptions.style"
       :view="mapOptions.view"
-      class="AzureMap">
+      class="AzureMap"
+      @mousedown="hidePopup">
       <AzureMapZoomControl />
       <AzureMapPitchControl />
       <AzureMapCompassControl />
@@ -58,8 +59,6 @@
       </AzureMapDataSource>
     </AzureMap>
   </div>
-
-  {{ isPopupOpen }} {{ popupPosition }}
 </template>
 
 <script setup lang="ts">
@@ -156,12 +155,14 @@
     isPopupOpen.value = true
     popupPosition.value = position
     popupPixelOffset.value = pixelOffset
+    console.log('show')
   }
 
   function hidePopup(): void {
     isPopupOpen.value = false
     popupPosition.value = null
     popupPixelOffset.value = null
+    console.log('hide')
   }
 
   function onFeatureSelected(
