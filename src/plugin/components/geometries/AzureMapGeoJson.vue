@@ -28,5 +28,3 @@
     dataSource.value?.remove(shape)
   })
 </script>
-
-<style scoped lang="scss"></style>

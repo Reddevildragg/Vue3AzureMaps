@@ -7,7 +7,6 @@
     inject,
     onMounted,
     onUnmounted,
-    PropType,
     watch,
   } from 'vue'
   import atlas, { Shape } from 'azure-maps-control'
@@ -129,5 +128,3 @@
     emit(AzureMapPointEvent.CircleCoordinates, shape.getCircleCoordinates())
   }
 </script>
-
-<style scoped lang="scss"></style>

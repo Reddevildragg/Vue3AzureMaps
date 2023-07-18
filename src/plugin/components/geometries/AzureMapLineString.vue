@@ -59,22 +59,4 @@
   onUnmounted(() => {
     dataSource.value?.remove(shape)
   })
-
-  const pointCoordinates: atlas.data.Position | null = computed(() => {
-    // If coordinates are not provided,
-    // look for individual props
-    if (!props.coordinates) {
-      // If individual props are not provided,
-      // return null
-      if (!props.longitude || !props.latitude) {
-        return null
-      }
-      // return individual props
-      return [props.longitude, props.latitude]
-    }
-    // return position
-    return props.coordinates
-  })
 </script>
-
-<style scoped lang="scss"></style>

@@ -1,5 +1,5 @@
 <template>
-  <div :id="mapId" :style="{ width, height }">
+  <div :id="mapId">
     <template v-if="isMapReady">
       <slot :map="map" />
     </template>
@@ -19,26 +19,6 @@
   const app = getCurrentInstance()
   const emit = defineEmits(['ready'])
   const props = defineProps({
-    /**
-     * The `atlas.Map` container width
-     *
-     * Note this property is optional because it could be specified using CSS
-     */
-    width: {
-      type: String as PropType<string | null>,
-      default: null,
-    },
-
-    /**
-     * The `atlas.Map` container height
-     *
-     * Note this property is optional because it could be specified using CSS
-     */
-    height: {
-      type: String as PropType<string | null>,
-      default: null,
-    },
-
     /**
      * The authentication options used to customize how the map control authenticates with Azure Maps services.
      * If these authentication options are specified then ServiceOptions.subscriptionKey should not be.

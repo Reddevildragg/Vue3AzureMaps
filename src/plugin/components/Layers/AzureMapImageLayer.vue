@@ -71,5 +71,3 @@
     { deep: true }
   )
 </script>
-
-<style scoped lang="scss"></style>

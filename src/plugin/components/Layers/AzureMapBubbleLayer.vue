@@ -73,5 +73,3 @@
     map.value?.layers.remove(bubbleLayer.value)
   })
 </script>
-
-<style scoped lang="scss"></style>

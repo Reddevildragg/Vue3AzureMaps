@@ -9,7 +9,6 @@
     onUnmounted,
     PropType,
   } from 'vue'
-  import atlas from 'azure-maps-control'
   import { AzureMapImageSpriteIconEvent } from '@/plugin/types/enums.ts'
 
   const props = defineProps({

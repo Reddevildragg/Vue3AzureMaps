@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" ref="el">
+  <component :is="tag" ref="el" v-if="slots.default">
     <slot />
   </component>
 </template>
