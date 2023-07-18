@@ -11,6 +11,7 @@ import LineTesting from '@/components/LineTesting.vue'
 import PolygonTesting from '@/components/PolygonTesting.vue'
 import SpiderClusterTesting from '@/components/SpiderClusterTesting.vue'
 import HTMLMarkerTesting from '@/components/HTMLMarkerTesting.vue'
+import GeoJSONTesting from '@/components/GeoJSONTesting.vue'
 
 ///default built in routes
 const routes = [
@@ -58,6 +59,11 @@ const routes = [
     path: '/HTMLMarkerTesting',
     name: 'HTMLMarkerTesting',
     component: HTMLMarkerTesting,
+  },
+  {
+    path: '/GeoJsonTest',
+    name: 'GeoJsonTest',
+    component: GeoJSONTesting,
   },
 ]
 

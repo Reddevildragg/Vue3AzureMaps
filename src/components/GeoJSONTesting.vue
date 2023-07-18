@@ -15,6 +15,8 @@
 
       <!-- Create a Data Source -->
       <AzureMapDataSource>
+        <AzureMapGeoJson
+          geo-json-url="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson" />
         <AzureMapSymbolLayer :options="customIconSymbolLayerOptions" />
       </AzureMapDataSource>
     </AzureMap>
@@ -36,6 +38,7 @@
   } from '@/plugin'
   import { MapOptions } from '@/plugin/types'
   import atlas from 'azure-maps-control'
+  import AzureMapGeoJson from '@/plugin/components/geometries/AzureMapGeoJson.vue'
 
   const mapOptions = {
     center: [-122.33, 47.6],
