@@ -162,7 +162,6 @@
     isPopupOpen.value = false
     popupPosition.value = null
     popupPixelOffset.value = null
-    console.log('hide')
   }
 
   function onFeatureSelected(

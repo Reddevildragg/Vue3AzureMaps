@@ -12,6 +12,7 @@ import PolygonTesting from '@/components/PolygonTesting.vue'
 import SpiderClusterTesting from '@/components/SpiderClusterTesting.vue'
 import HTMLMarkerTesting from '@/components/HTMLMarkerTesting.vue'
 import GeoJSONTesting from '@/components/GeoJSONTesting.vue'
+import ClusterAverageTesting from '@/components/ClusterAverageTesting.vue'
 
 ///default built in routes
 const routes = [
@@ -64,6 +65,11 @@ const routes = [
     path: '/GeoJsonTest',
     name: 'GeoJsonTest',
     component: GeoJSONTesting,
+  },
+  {
+    path: '/dataCluster',
+    name: 'dataClusterTest',
+    component: ClusterAverageTesting,
   },
 ]
 

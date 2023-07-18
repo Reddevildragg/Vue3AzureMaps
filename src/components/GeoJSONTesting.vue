@@ -17,7 +17,10 @@
       <AzureMapDataSource>
         <AzureMapGeoJson
           geo-json-url="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson" />
+        />
         <AzureMapSymbolLayer :options="customIconSymbolLayerOptions" />
+        <AzureMapLineLayer :options="lineLayerOptions" />
+        <AzureMapPolygonLayer :options="polygonLayerOptions" />
       </AzureMapDataSource>
     </AzureMap>
   </div>
@@ -39,6 +42,8 @@
   import { MapOptions } from '@/plugin/types'
   import atlas from 'azure-maps-control'
   import AzureMapGeoJson from '@/plugin/components/geometries/AzureMapGeoJson.vue'
+  import AzureMapLineLayer from '@/plugin/components/Layers/AzureMapLineLayer.vue'
+  import AzureMapPolygonLayer from '@/plugin/components/Layers/AzureMapPolygonLayer.vue'
 
   const mapOptions = {
     center: [-122.33, 47.6],
@@ -48,6 +53,16 @@
   } as MapOptions
 
   const customIconSymbolLayerOptions = {} as atlas.SymbolLayerOptions
+
+  const lineLayerOptions = {
+    strokeColor: '#41B883',
+    strokeWidth: 1,
+  } as atlas.LineLayerOptions
+
+  const polygonLayerOptions = {
+    fillColor: 'green',
+    opacity: 0.5,
+  } as atlas.PolygonLayerOptions
 </script>
 
 <style></style>
