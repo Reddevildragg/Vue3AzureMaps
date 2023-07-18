@@ -10,7 +10,6 @@
     onUnmounted,
     PropType,
     watch,
-    computed,
   } from 'vue'
   import atlas from 'azure-maps-control'
   import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
@@ -113,7 +112,6 @@
       {
         ...options,
         featureSelected: (shape, cluster) => {
-          console.log('selected')
           emit(
             AzureMapSpiderClusterManagerEvent.FeatureSelected,
             shape,
@@ -123,7 +121,6 @@
         // Emit an event instead of using this function as a prop,
         // cannot be overwritten if props update
         featureUnselected: () => {
-          console.log('waffles')
           emit(AzureMapSpiderClusterManagerEvent.FeatureUnselected)
         },
       }
