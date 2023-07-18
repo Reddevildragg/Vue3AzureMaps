@@ -10,6 +10,7 @@
     onMounted,
     onUnmounted,
     PropType,
+    watch,
   } from 'vue'
   import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
@@ -101,7 +102,7 @@
   const attrs = useAttrs()
   const currentInstance = getCurrentInstance()
   const map = inject('getMap')
-  let marker
+  let marker: atlas.HtmlMarker
 
   onMounted(() => {
     if (!map?.value || !currentInstance) {
@@ -126,6 +127,13 @@
   onUnmounted(() => {
     map.value?.markers.remove(marker)
   })
+
+  watch(
+    () => props,
+    () => {
+      marker.setOptions(getOptionsFromProps({ props: props }))
+    }
+  )
 </script>
 
 <style scoped lang="scss"></style>

@@ -9,7 +9,7 @@
 <script lang="ts" setup>
   import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
-  import { onMounted, onUnmounted, PropType, provide, ref } from 'vue'
+  import { onMounted, onUnmounted, PropType, provide, ref, watch } from 'vue'
   import { getCurrentInstance } from 'vue'
   import { useAttrs } from 'vue'
   import atlas from 'azure-maps-control'
@@ -452,4 +452,67 @@
       })
     )
   }
+
+  watch(
+    () => [
+      props.authOptions,
+      props.subscriptionKey,
+      props.sessionId,
+      props.enableAccessibility,
+      props.refreshExpiredTiles,
+      props.transformRequest,
+    ],
+    () => {
+      map?.value?.setServiceOptions(props)
+    }
+  )
+
+  watch(
+    () => [
+      props.zoom,
+      props.center,
+      props.centerOffset,
+      props.bearing,
+      props.pitch,
+      props.minZoom,
+      props.maxZoom,
+      props.bounds,
+      props.offset,
+      props.padding,
+    ],
+    () => {
+      map?.value?.setCamera(props)
+    }
+  )
+
+  watch(
+    () => [
+      props.autoResize,
+      props.renderWorldCopies,
+      props.showFeedbackLink,
+      props.showLogo,
+      props.mapStyle,
+      props.language,
+      props.view,
+    ],
+    () => {
+      map?.value?.setStyle(props)
+    }
+  )
+
+  watch(
+    () => [
+      props.interactive,
+      props.scrollZoomInteraction,
+      props.boxZoomInteraction,
+      props.dragRotateInteraction,
+      props.dragPanInteraction,
+      props.keyboardInteraction,
+      props.dblClickZoomInteraction,
+      props.touchInteraction,
+    ],
+    () => {
+      map?.value?.setUserInteraction(props)
+    }
+  )
 </script>

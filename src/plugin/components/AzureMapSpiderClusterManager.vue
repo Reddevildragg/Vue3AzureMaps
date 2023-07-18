@@ -9,6 +9,8 @@
     onMounted,
     onUnmounted,
     PropType,
+    watch,
+    computed,
   } from 'vue'
   import atlas from 'azure-maps-control'
   import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
@@ -101,9 +103,7 @@
     // The cluster and unclusted layer instances are required.
     if (!props.clusterLayer || !props.unclustedLayer) return
 
-    const options = getOptionsFromProps<ISpiderClusterOptions>({
-      props: props,
-    })
+    const options = getOptionsFromProps<ISpiderClusterOptions>({ props: props })
 
     spiderManager.value = new SpiderClusterManager(
       currentInstance.appContext.config.globalProperties.$_azureMaps.atlas,
@@ -113,6 +113,7 @@
       {
         ...options,
         featureSelected: (shape, cluster) => {
+          console.log('selected')
           emit(
             AzureMapSpiderClusterManagerEvent.FeatureSelected,
             shape,
@@ -122,6 +123,7 @@
         // Emit an event instead of using this function as a prop,
         // cannot be overwritten if props update
         featureUnselected: () => {
+          console.log('waffles')
           emit(AzureMapSpiderClusterManagerEvent.FeatureUnselected)
         },
       }
@@ -131,6 +133,13 @@
   onUnmounted(() => {
     spiderManager.value?.dispose()
   })
+
+  watch(
+    () => props,
+    () => {
+      spiderManager.value.setOptions(getOptionsFromProps({ props: props }))
+    }
+  )
 </script>
 
 <style scoped lang="scss"></style>

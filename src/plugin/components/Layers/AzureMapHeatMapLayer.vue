@@ -14,6 +14,7 @@
   import { AzureMapHeatMapLayerEvent } from '@/plugin/types/enums.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
   import { azureMapStore } from '@/plugin/store/azureMapStore.ts'
+  import { watch } from 'vue/dist/vue'
 
   const emit = defineEmits([AzureMapHeatMapLayerEvent.Created])
 
@@ -65,6 +66,14 @@
   onUnmounted(() => {
     map.value?.layers.remove(heatMapLayer.value)
   })
+
+  watch(
+    () => props.options,
+    () => {
+      heatMapLayer.value.setOptions(props.options || {})
+    },
+    { deep: true }
+  )
 </script>
 
 <style scoped lang="scss"></style>

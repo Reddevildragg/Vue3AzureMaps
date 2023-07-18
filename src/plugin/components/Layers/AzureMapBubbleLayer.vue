@@ -1,7 +1,7 @@
 <template></template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
   import atlas from 'azure-maps-control'
   import {
     getCurrentInstance,
@@ -60,6 +60,14 @@
       reservedEventTypes: Object.values(AzureMapBubbleLayerEvent),
     })
   })
+
+  watch(
+    () => props.options,
+    () => {
+      bubbleLayer.value.setOptions(props.options || {})
+    },
+    { deep: true }
+  )
 
   onUnmounted(() => {
     map.value?.layers.remove(bubbleLayer.value)

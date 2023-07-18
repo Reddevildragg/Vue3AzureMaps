@@ -8,8 +8,7 @@
     onMounted,
     onUnmounted,
     PropType,
-    ref,
-    reactive,
+    watch,
   } from 'vue'
   import atlas, { Shape } from 'azure-maps-control'
   import { AzureMapPointEvent } from '@/plugin/types/enums.ts'
@@ -49,6 +48,25 @@
     },
   })
 
+  const pointProperties = computed(() => {
+    return { ...(props.properties || {}) }
+  })
+  const pointCoordinates: atlas.data.Position | null = computed(() => {
+    // If coordinates are not provided,
+    // look for individual props
+    if (!props.coordinates) {
+      // If individual props are not provided,
+      // return null
+      if (!props.longitude || !props.latitude) {
+        return null
+      }
+      // return individual props
+      return [props.longitude, props.latitude]
+    }
+    // return position
+    return props.coordinates
+  })
+
   onMounted(() => {
     if (!map?.value || !currentInstance) {
       return
@@ -83,21 +101,27 @@
     dataSource.value?.remove(shape)
   })
 
-  const pointCoordinates: atlas.data.Position | null = computed(() => {
-    // If coordinates are not provided,
-    // look for individual props
-    if (!props.coordinates) {
-      // If individual props are not provided,
-      // return null
-      if (!props.longitude || !props.latitude) {
-        return null
-      }
-      // return individual props
-      return [props.longitude, props.latitude]
+  watch(
+    () => pointCoordinates,
+    () => {
+      shape.setCoordinates(pointCoordinates)
     }
-    // return position
-    return props.coordinates
-  })
+  )
+
+  watch(
+    () => pointProperties,
+    (newValue, oldValue) => {
+      shape.setProperties(pointProperties)
+
+      if (
+        shape.isCircle() &&
+        (newValue.radius !== oldValue.radius ||
+          newValue.subType !== oldValue.subType)
+      ) {
+        this.emitCircleCoordinates(shape)
+      }
+    }
+  )
 
   function emitCircleCoordinates(shape: atlas.Shape): void {
     // If the point has a circle polygon,

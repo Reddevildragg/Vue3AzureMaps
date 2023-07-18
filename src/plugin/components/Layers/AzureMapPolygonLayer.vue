@@ -1,7 +1,7 @@
 <template></template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
   import atlas from 'azure-maps-control'
   import {
     getCurrentInstance,
@@ -62,6 +62,14 @@
   onUnmounted(() => {
     map.value?.layers.remove(polygonLayer.value)
   })
+
+  watch(
+    () => props.options,
+    () => {
+      polygonLayer.value.setOptions(props.options || {})
+    },
+    { deep: true }
+  )
 </script>
 
 <style scoped lang="scss"></style>

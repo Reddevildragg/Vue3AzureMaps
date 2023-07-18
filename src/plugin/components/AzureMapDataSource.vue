@@ -9,6 +9,7 @@
 <script setup lang="ts">
   import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
   import {
+    computed,
     getCurrentInstance,
     inject,
     onMounted,
@@ -116,34 +117,29 @@
     dataSource.value =
       new app.appContext.config.globalProperties.$_azureMaps.atlas.source.DataSource(
         props.id || `azure-map-data-source-${azureMapStore.dataSourceId++}`,
-        getOptionsFromProps({
-          props: props,
-        })
+        getOptionsFromProps({ props: dataSourceOptionsProps.value })
       )
 
     map.value.sources.add(dataSource.value)
   })
 
+  const dataSourceOptionsProps = computed(() => {
+    const data = {
+      maxZoom: props.maxZoom,
+      cluster: props.cluster,
+      clusterRadius: props.clusterRadius,
+      clusterMaxZoom: props.clusterMaxZoom,
+      lineMetrics: props.lineMetrics,
+      tolerance: props.tolerance,
+      clusterProperties: props.clusterProperties,
+    }
+    return data
+  })
+
   watch(
-    () => [
-      props.maxZoom,
-      props.cluster,
-      props.clusterRadius,
-      props.clusterMaxZoom,
-      props.lineMetrics,
-      props.tolerance,
-      props.clusterProperties,
-    ],
+    () => dataSourceOptionsProps,
     () => {
-      dataSource?.value?.setOptions({
-        maxZoom: props.maxZoom,
-        cluster: props.cluster,
-        clusterRadius: props.clusterRadius,
-        clusterMaxZoom: props.clusterMaxZoom,
-        lineMetrics: props.lineMetrics,
-        tolerance: props.tolerance,
-        clusterProperties: props.clusterProperties,
-      })
+      dataSource?.value?.setOptions({ props: dataSourceOptionsProps.value })
     },
     {
       deep: true,

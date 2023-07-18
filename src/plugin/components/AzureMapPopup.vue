@@ -152,6 +152,25 @@
     }
   )
 
+  watch(
+    () => [
+      props.pixelOffset,
+      props.position,
+      props.closeButton,
+      props.showPointer,
+      props.fillColor,
+    ],
+    (newOptions) => {
+      popup.value.setOptions({
+        position: props.position,
+        pixelOffset: props.pixelOffset,
+        closeButton: props.closeButton,
+        showPointer: props.showPointer,
+        fillColor: props.fillColor,
+      })
+    }
+  )
+
   onUnmounted(() => {
     popup.value?.remove()
     for (let i = 0; i < unmountEvents.length; i++) {

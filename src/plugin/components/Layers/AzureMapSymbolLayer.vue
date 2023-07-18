@@ -9,6 +9,7 @@
     PropType,
     ref,
     useAttrs,
+    watch,
   } from 'vue'
   import atlas from 'azure-maps-control'
   import { AzureMapSymbolLayerEvent } from '@/plugin/types/enums.ts'
@@ -60,6 +61,14 @@
   onUnmounted(() => {
     map.value?.layers.remove(symbolLayer.value)
   })
+
+  watch(
+    () => props.options,
+    () => {
+      symbolLayer.value.setOptions(props.options || {})
+    },
+    { deep: true }
+  )
 </script>
 
 <style scoped lang="scss"></style>
