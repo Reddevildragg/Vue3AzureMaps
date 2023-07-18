@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; height: 100%">
+  <div style="width: 100%; height: 90%">
     <AzureMap
       :center="mapOptions.center"
       :language="mapOptions.language"
@@ -14,15 +14,14 @@
       <AzureMapStyleControl />
 
       <!-- Create a Data Source -->
-      <AzureMapDataSource v-if="points">
-        <!-- Add Points to the Data Source -->
-        <AzureMapPoint
-          v-for="point in points"
-          :key="point.properties.name"
-          :longitude="point.longitude"
-          :latitude="point.latitude" />
-
-        <AzureMapSymbolLayer :options="customIconSymbolLayerOptions" />
+      <AzureMapDataSource>
+        <!-- Add Polygons to the Data Source -->
+        <AzureMapPolygon
+          v-for="polygon in polygons"
+          :key="polygon.name"
+          :coordinates="polygon.coordinates" />
+        <!-- Add a Polygon Layer to render the Polygons stored in the Data Source -->
+        <AzureMapPolygonLayer :options="polygonLayerOptions" />
       </AzureMapDataSource>
     </AzureMap>
   </div>
@@ -36,14 +35,14 @@
     AzureMapFullscreenControl,
     AzureMapGeolocationControl,
     AzureMapPitchControl,
-    AzureMapPoint,
     AzureMapStyleControl,
-    AzureMapSymbolLayer,
     AzureMapZoomControl,
   } from '@/plugin'
   import { CustomPoint, MapOptions } from '@/plugin/types'
+  import { generateMockPolygons } from '@/plugin/utils/dataGeneration.ts'
   import atlas from 'azure-maps-control'
-  import { generateMockPoints } from '@/plugin/utils/dataGeneration.ts'
+  import AzureMapPolygon from '@/plugin/components/geometries/AzureMapPolygon.vue'
+  import AzureMapPolygonLayer from '@/plugin/components/Layers/AzureMapPolygonLayer.vue'
 
   const mapOptions = {
     center: [-122.33, 47.6],
@@ -52,9 +51,12 @@
     language: 'en-US',
   } as MapOptions
 
-  const customIconSymbolLayerOptions = {} as atlas.SymbolLayerOptions
+  const polygonLayerOptions = {
+    fillColor: 'green',
+    opacity: 0.5,
+  } as atlas.PolygonLayerOptions
 
-  const points: Array<CustomPoint> = generateMockPoints()
+  const polygons: Array<CustomPoint> = generateMockPolygons()
 </script>
 
 <style scoped></style>

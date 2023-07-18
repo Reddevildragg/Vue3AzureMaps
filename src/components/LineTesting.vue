@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; height: 100%">
+  <div style="width: 100%; height: 90%">
     <AzureMap
       :center="mapOptions.center"
       :language="mapOptions.language"
@@ -14,15 +14,14 @@
       <AzureMapStyleControl />
 
       <!-- Create a Data Source -->
-      <AzureMapDataSource v-if="points">
-        <!-- Add Points to the Data Source -->
-        <AzureMapPoint
-          v-for="point in points"
-          :key="point.properties.name"
-          :longitude="point.longitude"
-          :latitude="point.latitude" />
-
-        <AzureMapSymbolLayer :options="customIconSymbolLayerOptions" />
+      <AzureMapDataSource>
+        <!-- Add Line Strings to the Data Source -->
+        <AzureMapLineString
+          v-for="lineString in lines"
+          :key="lineString.name"
+          :coordinates="lineString.coordinates" />
+        <!-- Add a Line Layer to render the Line Strings stored in the Data Source -->
+        <AzureMapLineLayer :options="lineLayerOptions" />
       </AzureMapDataSource>
     </AzureMap>
   </div>
@@ -36,14 +35,14 @@
     AzureMapFullscreenControl,
     AzureMapGeolocationControl,
     AzureMapPitchControl,
-    AzureMapPoint,
     AzureMapStyleControl,
-    AzureMapSymbolLayer,
     AzureMapZoomControl,
+    AzureMapLineLayer,
   } from '@/plugin'
-  import { CustomPoint, MapOptions } from '@/plugin/types'
+  import { MapOptions, CustomLine } from '@/plugin/types'
+  import { generateMockLineStrings } from '@/plugin/utils/dataGeneration.ts'
   import atlas from 'azure-maps-control'
-  import { generateMockPoints } from '@/plugin/utils/dataGeneration.ts'
+  import AzureMapLineString from '@/plugin/components/geometries/AzureMapLineString.vue'
 
   const mapOptions = {
     center: [-122.33, 47.6],
@@ -52,9 +51,14 @@
     language: 'en-US',
   } as MapOptions
 
-  const customIconSymbolLayerOptions = {} as atlas.SymbolLayerOptions
+  const lineLayerOptions = {
+    strokeColor: '#41B883',
+    strokeWidth: 1,
+  } as atlas.LineLayerOptions
 
-  const points: Array<CustomPoint> = generateMockPoints()
+  const lines: Array<CustomLine> = generateMockLineStrings()
+
+  console.log('lines', lines)
 </script>
 
 <style scoped></style>

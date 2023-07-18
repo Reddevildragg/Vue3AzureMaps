@@ -7,6 +7,9 @@ import UserLocationTesting from '@/components/UserLocationTesting.vue'
 import SpriteTesting from '@/components/SpriteTesting.vue'
 import BubbleMapTesting from '@/components/bubbleMapTesting.vue'
 import PopupTesting from '@/components/PopupTesting.vue'
+import LineTesting from '@/components/LineTesting.vue'
+import PolygonTesting from '@/components/PolygonTesting.vue'
+import SpiderClusterTesting from '@/components/SpiderClusterTesting.vue'
 
 ///default built in routes
 const routes = [
@@ -34,6 +37,21 @@ const routes = [
     path: '/PopupTesting',
     name: 'PopupTesting',
     component: PopupTesting,
+  },
+  {
+    path: '/LineTesting',
+    name: 'LineTesting',
+    component: LineTesting,
+  },
+  {
+    path: '/PolygonTesting',
+    name: 'PolygonTesting',
+    component: PolygonTesting,
+  },
+  {
+    path: '/SpiderClusterTesting',
+    name: 'SpiderClusterTesting',
+    component: SpiderClusterTesting,
   },
 ]
 

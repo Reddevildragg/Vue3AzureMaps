@@ -25,4 +25,8 @@
   })
 </script>
 
-<style scoped lang="scss"></style>
+<style lang="scss">
+  .azure-maps-control-container {
+    max-width: 40px;
+  }
+</style>

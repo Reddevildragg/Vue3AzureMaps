@@ -10,3 +10,13 @@ export type CustomPoint = {
   latitude: number
   properties: Record<string, unknown>
 }
+
+export type CustomLine = {
+  name: string
+  coordinates: Array<atlas.data.Position>
+}
+
+export type CustomPolygon = {
+  name: string
+  coordinates: Array<atlas.data.Position>
+}

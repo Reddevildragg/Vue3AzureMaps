@@ -50,7 +50,12 @@ import AzureMapPolygon from '@/plugin/components/geometries/AzureMapPolygon.vue'
 export default VueAzureMaps
 
 export { VueAzureMapsPluginOptions } from './vue-azure-maps'
-export { MapOptions, CustomPoint } from '@/plugin/types/types.d.ts'
+export {
+  MapOptions,
+  CustomPoint,
+  CustomLine,
+  CustomPolygon,
+} from '@/plugin/types/types.d.ts'
 export {
   atlas,
   AzureMap,

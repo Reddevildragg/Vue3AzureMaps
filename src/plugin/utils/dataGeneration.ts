@@ -1,4 +1,5 @@
 import { CustomPoint } from '@/plugin/types'
+import { CustomLine, CustomPolygon } from '@/plugin/types/types'
 
 export function generateMockPoints(
   mockPointSize: number = 5
@@ -19,6 +20,45 @@ export function generateMockPoints(
   }
 
   return points
+}
+
+export function generateMockLineStrings(
+  mockLineStringSize: number = 5
+): Array<CustomLine> {
+  const lineStrings: Array<CustomLine> = []
+  // Generate a bunch of line strings with random coordinates
+  for (let i = 0; i < mockLineStringSize; i++) {
+    lineStrings.push({
+      name: `LineString-${i}`,
+      coordinates: [
+        [generateRandomLongitude(), generateRandomLatitude()],
+        [generateRandomLongitude(), generateRandomLatitude()],
+      ],
+    })
+  }
+
+  return lineStrings
+}
+
+export function generateMockPolygons(
+  mockPolygonSize: number = 2
+): Array<CustomPolygon> {
+  const polygons: Array<CustomPolygon> = []
+
+  // Generate a bunch of polygons with random coordinates
+  for (let i = 0; i < mockPolygonSize; i++) {
+    polygons.push({
+      name: `Polygon-${i}`,
+      coordinates: [
+        [generateRandomLongitude(), generateRandomLatitude()],
+        [generateRandomLongitude(), generateRandomLatitude()],
+        [generateRandomLongitude(), generateRandomLatitude()],
+        [generateRandomLongitude(), generateRandomLatitude()],
+        [generateRandomLongitude(), generateRandomLatitude()],
+      ],
+    })
+  }
+  return polygons
 }
 
 export function generateRandomLongitude(): number {
