@@ -13,6 +13,7 @@ import SpiderClusterTesting from '@/components/SpiderClusterTesting.vue'
 import HTMLMarkerTesting from '@/components/HTMLMarkerTesting.vue'
 import GeoJSONTesting from '@/components/GeoJSONTesting.vue'
 import ClusterAverageTesting from '@/components/ClusterAverageTesting.vue'
+import ChoroplethMapTesting from '@/components/ChoroplethMapTesting.vue'
 
 ///default built in routes
 const routes = [
@@ -70,6 +71,11 @@ const routes = [
     path: '/dataCluster',
     name: 'dataClusterTest',
     component: ClusterAverageTesting,
+  },
+  {
+    path: '/choropleth',
+    name: 'choropleth',
+    component: ChoroplethMapTesting,
   },
 ]
 

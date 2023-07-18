@@ -14,6 +14,7 @@
     onUnmounted,
     PropType,
     watch,
+    useSlots,
   } from 'vue'
   import atlas, { PopupOptions } from 'azure-maps-control'
   import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
@@ -89,6 +90,10 @@
       type: Boolean as PropType<boolean | null>,
       default: null,
     },
+    content: {
+      type: String as PropType<string | HTMLElement | null>,
+      default: null,
+    },
   })
 
   const emit = defineEmits([
@@ -98,6 +103,7 @@
     AzureMapPopupEvent.Update,
   ])
 
+  const slots = useSlots()
   const currentInstance = getCurrentInstance()
   const map = inject('getMap')
   const popup = ref<atlas.Popup>(null)
@@ -138,9 +144,19 @@
       })
     )
 
-    popup.value?.setOptions({ content: el.value as HTMLElement })
+    popup.value?.setOptions({
+      content: slots.default ? (el.value as HTMLElement) : props.content,
+    })
   })
 
+  watch(
+    () => [slots, props.content],
+    () => {
+      popup.value?.setOptions({
+        content: slots.default ? (el.value as HTMLElement) : props.content,
+      })
+    }
+  )
   watch(
     () => props.open,
     (newValue, oldValue) => {

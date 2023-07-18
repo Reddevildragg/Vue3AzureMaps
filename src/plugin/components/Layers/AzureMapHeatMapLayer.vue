@@ -14,7 +14,7 @@
   import { AzureMapHeatMapLayerEvent } from '@/plugin/types/enums.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
   import { azureMapStore } from '@/plugin/store/azureMapStore.ts'
-  import { watch } from 'vue/dist/vue'
+  import { watch } from 'vue'
 
   const emit = defineEmits([AzureMapHeatMapLayerEvent.Created])
 

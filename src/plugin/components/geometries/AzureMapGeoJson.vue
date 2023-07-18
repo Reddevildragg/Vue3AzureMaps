@@ -2,8 +2,7 @@
 
 <script setup lang="ts">
   import { getCurrentInstance, inject, onMounted, onUnmounted } from 'vue'
-  import atlas, { Shape } from 'azure-maps-control'
-  import { PropType } from 'vue/dist/vue'
+  import { Shape } from 'azure-maps-control'
 
   const currentInstance = getCurrentInstance()
   const map = inject('getMap')

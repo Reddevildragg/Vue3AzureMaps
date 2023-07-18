@@ -15,6 +15,7 @@
     onUnmounted,
     PropType,
     watch,
+    useSlots,
   } from 'vue'
   import getOptionsFromProps from '@/plugin/utils/getOptionsFromProps.ts'
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
@@ -119,7 +120,6 @@
 
   let marker: atlas.HtmlMarker
 
-  import { useSlots } from 'vue'
   const slots = useSlots()
   console.log('slots', slots.default)
 
