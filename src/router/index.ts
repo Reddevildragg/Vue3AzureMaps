@@ -10,6 +10,7 @@ import PopupTesting from '@/components/PopupTesting.vue'
 import LineTesting from '@/components/LineTesting.vue'
 import PolygonTesting from '@/components/PolygonTesting.vue'
 import SpiderClusterTesting from '@/components/SpiderClusterTesting.vue'
+import HTMLMarkerTesting from '@/components/HTMLMarkerTesting.vue'
 
 ///default built in routes
 const routes = [
@@ -52,6 +53,11 @@ const routes = [
     path: '/SpiderClusterTesting',
     name: 'SpiderClusterTesting',
     component: SpiderClusterTesting,
+  },
+  {
+    path: '/HTMLMarkerTesting',
+    name: 'HTMLMarkerTesting',
+    component: HTMLMarkerTesting,
   },
 ]
 

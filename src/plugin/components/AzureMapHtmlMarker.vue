@@ -1,4 +1,8 @@
-<template></template>
+<template>
+  <component :is="tag" ref="el">
+    <slot />
+  </component>
+</template>
 
 <script setup lang="ts">
   import atlas from 'azure-maps-control'
@@ -16,6 +20,15 @@
   import addMapEventListeners from '@/plugin/utils/addMapEventListeners.ts'
 
   const props = defineProps({
+    /**
+     * Specifies the tag used for the popup content
+     * default `div`
+     * @default "div"
+     */
+    tag: {
+      type: String,
+      default: 'div',
+    },
     /**
      * Indicates the marker's location relative to its position on the map.
      * Optional values: `"center"`, `"top"`, `"bottom"`, `"left"`, `"right"`,
@@ -102,7 +115,13 @@
   const attrs = useAttrs()
   const currentInstance = getCurrentInstance()
   const map = inject('getMap')
+  const el = ref(null)
+
   let marker: atlas.HtmlMarker
+
+  import { useSlots } from 'vue'
+  const slots = useSlots()
+  console.log('slots', slots.default)
 
   onMounted(() => {
     if (!map?.value || !currentInstance) {
@@ -111,7 +130,14 @@
 
     marker =
       new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.HtmlMarker(
-        getOptionsFromProps({ props: props })
+        getOptionsFromProps({
+          props: {
+            ...props,
+            htmlContent: slots.default
+              ? (el.value as HTMLElement)
+              : props.htmlContent,
+          },
+        })
       )
 
     map.value?.markers.add(marker)
