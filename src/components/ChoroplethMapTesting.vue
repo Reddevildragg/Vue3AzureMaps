@@ -42,12 +42,12 @@
     AzureMapStyleControl,
     AzureMapZoomControl,
     AzureMapDataSource,
-  } from '../Vue3AzureMapsPlugin'
-  import { MapOptions } from '@/Vue3AzureMapsPlugin/types/types.ts'
+  } from '../vue-3-azure-maps'
+  import { MapOptions } from '@/vue-3-azure-maps/types.ts'
   import atlas from 'azure-maps-control'
-  import AzureMapPolygonLayer from '@/Vue3AzureMapsPlugin/components/Layers/AzureMapPolygonLayer.vue'
-  import AzureMapGeoJson from '@/Vue3AzureMapsPlugin/components/geometries/AzureMapGeoJson.vue'
-  import AzureMapPopup from '@/Vue3AzureMapsPlugin/components/AzureMapPopup.vue'
+  import AzureMapPolygonLayer from '@/vue-3-azure-maps/components/Layers/AzureMapPolygonLayer.vue'
+  import AzureMapGeoJson from '@/vue-3-azure-maps/components/geometries/AzureMapGeoJson.vue'
+  import AzureMapPopup from '@/vue-3-azure-maps/components/AzureMapPopup.vue'
   import { ref } from 'vue'
 
   const s = '<div style="padding: 10px"><b>hello world</b></div>'

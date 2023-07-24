@@ -38,11 +38,11 @@
     AzureMapStyleControl,
     AzureMapZoomControl,
     AzureMapLineLayer,
-  } from '../Vue3AzureMapsPlugin'
-  import { MapOptions, CustomLine } from '@/Vue3AzureMapsPlugin/types/types.ts'
-  import { generateMockLineStrings } from '@/Vue3AzureMapsPlugin/utils/dataGeneration.ts'
+  } from '../vue-3-azure-maps'
+  import { MapOptions, CustomLine } from '@/vue-3-azure-maps/types.ts'
+  import { generateMockLineStrings } from '@/vue-3-azure-maps/utils/dataGeneration.ts'
   import atlas from 'azure-maps-control'
-  import AzureMapLineString from '@/Vue3AzureMapsPlugin/components/geometries/AzureMapLineString.vue'
+  import AzureMapLineString from '@/vue-3-azure-maps/components/geometries/AzureMapLineString.vue'
 
   const mapOptions = {
     center: [-122.33, 47.6],

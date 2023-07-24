@@ -31,9 +31,9 @@
     AzureMapPitchControl,
     AzureMapStyleControl,
     AzureMapZoomControl,
-  } from '../Vue3AzureMapsPlugin'
-  import { MapOptions } from '@/Vue3AzureMapsPlugin/types/types.ts'
-  import AzureMapHtmlMarker from '@/Vue3AzureMapsPlugin/components/AzureMapHtmlMarker.vue'
+  } from '../vue-3-azure-maps'
+  import { MapOptions } from '@/vue-3-azure-maps/types.ts'
+  import AzureMapHtmlMarker from '@/vue-3-azure-maps/components/AzureMapHtmlMarker.vue'
 
   const mapOptions = {
     center: [-122.33, 47.6],

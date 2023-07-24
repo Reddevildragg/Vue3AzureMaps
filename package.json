@@ -7,17 +7,18 @@
     "name": "Tom Greener"
   },
   "license": "MIT",
-  "main": "./dist/Vue3AzureMaps.umd.cjs",
-  "module": "./dist/Vue3AzureMaps.js",
+  "main": "./dist/vue-3-azure-maps.umd.cjs",
+  "module": "./dist/vue-3-azure-maps.js",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/Vue3AzureMaps.js",
-      "require": "./dist/Vue3AzureMaps.umd.cjs"
+      "import": "./dist/vue-3-azure-maps.js",
+      "require": "./dist/vue-3-azure-maps.umd.cjs"
     }
   },
+  "types": "./dist/vue-3-azure-maps/types/types.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "vite build && npm run generate:types",
