@@ -1,12 +1,27 @@
 {
-  "name": "vue3_vite_boilerplate",
+  "name": "vue-3-azure-maps",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "author": {
+    "name": "Tom Greener"
+  },
+  "license": "MIT",
+  "main": "./dist/Vue3AzureMaps.umd.cjs",
+  "module": "./dist/Vue3AzureMaps.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/Vue3AzureMaps.js",
+      "require": "./dist/Vue3AzureMaps.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "build": "vite build && npm run generate:types",
+    "generate:types": "vue-tsc --declaration --emitDeclarationOnly --outdir ./dist"
   },
   "dependencies": {
     "@creative-design-web/pinia-router": "^0.9.0",
@@ -36,6 +51,10 @@
     "prettier": "^2.8.8",
     "sass": "^1.63.2",
     "typescript": "^5.0.2",
-    "vite": "^4.3.9"
+    "vite": "^4.3.9",
+    "vue-tsc": "^1.8.6"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.47"
   }
 }

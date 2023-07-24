@@ -71,16 +71,16 @@
     AzureMapPitchControl,
     AzureMapStyleControl,
     AzureMapZoomControl,
-  } from '@/plugin'
-  import { MapOptions, CustomPoint } from '@/plugin/types'
-  import { generateMockPoints } from '@/plugin/utils/dataGeneration.ts'
+  } from '../Vue3AzureMapsPlugin'
+  import { MapOptions, CustomPoint } from '@/Vue3AzureMapsPlugin/types/types.ts'
+  import { generateMockPoints } from '@/Vue3AzureMapsPlugin/utils/dataGeneration.ts'
   import atlas from 'azure-maps-control'
-  import AzureMapPoint from '@/plugin/components/geometries/AzureMapPoint.vue'
-  import AzureMapPopup from '@/plugin/components/AzureMapPopup.vue'
+  import AzureMapPoint from '@/Vue3AzureMapsPlugin/components/geometries/AzureMapPoint.vue'
+  import AzureMapPopup from '@/Vue3AzureMapsPlugin/components/AzureMapPopup.vue'
   import { ref } from 'vue'
-  import AzureMapBubbleLayer from '@/plugin/components/Layers/AzureMapBubbleLayer.vue'
-  import AzureMapSymbolLayer from '@/plugin/components/Layers/AzureMapSymbolLayer.vue'
-  import AzureMapSpiderClusterManager from '@/plugin/components/AzureMapSpiderClusterManager.vue'
+  import AzureMapBubbleLayer from '@/Vue3AzureMapsPlugin/components/Layers/AzureMapBubbleLayer.vue'
+  import AzureMapSymbolLayer from '@/Vue3AzureMapsPlugin/components/Layers/AzureMapSymbolLayer.vue'
+  import AzureMapSpiderClusterManager from '@/Vue3AzureMapsPlugin/components/AzureMapSpiderClusterManager.vue'
 
   const mapOptions = {
     center: [-122.33, 47.6],

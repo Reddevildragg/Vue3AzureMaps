@@ -39,12 +39,12 @@
     AzureMapPitchControl,
     AzureMapStyleControl,
     AzureMapZoomControl,
-  } from '@/plugin'
-  import { MapOptions } from '@/plugin/types'
+  } from '../Vue3AzureMapsPlugin'
+  import { MapOptions } from '@/Vue3AzureMapsPlugin/types/types.ts'
   import atlas from 'azure-maps-control'
-  import AzureMapGeoJson from '@/plugin/components/geometries/AzureMapGeoJson.vue'
-  import AzureMapBubbleLayer from '@/plugin/components/Layers/AzureMapBubbleLayer.vue'
-  import AzureMapSymbolLayer from '@/plugin/components/Layers/AzureMapSymbolLayer.vue'
+  import AzureMapGeoJson from '@/Vue3AzureMapsPlugin/components/geometries/AzureMapGeoJson.vue'
+  import AzureMapBubbleLayer from '@/Vue3AzureMapsPlugin/components/Layers/AzureMapBubbleLayer.vue'
+  import AzureMapSymbolLayer from '@/Vue3AzureMapsPlugin/components/Layers/AzureMapSymbolLayer.vue'
 
   const mapOptions = {
     center: [-97, 39],

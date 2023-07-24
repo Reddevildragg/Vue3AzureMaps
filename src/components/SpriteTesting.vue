@@ -47,11 +47,11 @@
     AzureMapSymbolLayer,
     AzureMapDataSource,
     AzureMapPoint,
-  } from '@/plugin'
-  import { CustomPoint, MapOptions } from '@/plugin/types'
+  } from '../Vue3AzureMapsPlugin'
+  import { CustomPoint, MapOptions } from '@/Vue3AzureMapsPlugin/types/types.ts'
 
   import image from '@/assets/img.png'
-  import { generateMockPoints } from '@/plugin/utils/dataGeneration.ts'
+  import { generateMockPoints } from '@/Vue3AzureMapsPlugin/utils/dataGeneration.ts'
   import atlas from 'azure-maps-control'
   import { ref } from 'vue'
 
