@@ -38,12 +38,12 @@
     AzureMapStyleControl,
     AzureMapSymbolLayer,
     AzureMapZoomControl,
-  } from '../vue-3-azure-maps'
-  import { MapOptions } from '@/vue-3-azure-maps/types.ts'
+  } from '../vue3-azure-maps'
+  import { MapOptions } from '@/vue3-azure-maps/types.ts'
   import atlas from 'azure-maps-control'
-  import AzureMapGeoJson from '@/vue-3-azure-maps/components/geometries/AzureMapGeoJson.vue'
-  import AzureMapLineLayer from '@/vue-3-azure-maps/components/Layers/AzureMapLineLayer.vue'
-  import AzureMapPolygonLayer from '@/vue-3-azure-maps/components/Layers/AzureMapPolygonLayer.vue'
+  import AzureMapGeoJson from '@/vue3-azure-maps/components/geometries/AzureMapGeoJson.vue'
+  import AzureMapLineLayer from '@/vue3-azure-maps/components/Layers/AzureMapLineLayer.vue'
+  import AzureMapPolygonLayer from '@/vue3-azure-maps/components/Layers/AzureMapPolygonLayer.vue'
 
   const mapOptions = {
     center: [-122.33, 47.6],

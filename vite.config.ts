@@ -15,17 +15,17 @@ export default defineConfig({
     lib: {
       // the entry file that is loaded whenever someone imports
       // your plugin in their app
-      entry: path.resolve(__dirname, 'src/vue-3-azure-maps/index.ts'),
+      entry: path.resolve(__dirname, 'src/vue3-azure-maps/index.ts'),
 
       // the exposed global variable
       // is required when formats includes 'umd' or 'iife'
-      name: 'vue-3-azure-maps',
+      name: 'vue3-azure-maps',
 
       // the proper extensions will be added, ie:
       // name.js (es module)
       // name.umd.cjs) (common js module)
       // default fileName is the name option of package.json
-      fileName: 'vue-3-azure-maps',
+      fileName: 'vue3-azure-maps',
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

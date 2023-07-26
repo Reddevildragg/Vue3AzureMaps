@@ -35,8 +35,8 @@
     AzureMapStyleControl,
     AzureMapZoomControl,
     AzureMapUserPosition,
-  } from '../vue-3-azure-maps'
-  import { MapOptions } from '@/vue-3-azure-maps/types.ts'
+  } from '../vue3-azure-maps'
+  import { MapOptions } from '@/vue3-azure-maps/types.ts'
   import atlas from 'azure-maps-control'
 
   const mapOptions = {

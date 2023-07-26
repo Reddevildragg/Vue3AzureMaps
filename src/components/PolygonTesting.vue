@@ -37,12 +37,12 @@
     AzureMapPitchControl,
     AzureMapStyleControl,
     AzureMapZoomControl,
-  } from '../vue-3-azure-maps'
-  import { CustomPoint, MapOptions } from '@/vue-3-azure-maps/types.ts'
-  import { generateMockPolygons } from '@/vue-3-azure-maps/utils/dataGeneration.ts'
+  } from '../vue3-azure-maps'
+  import { CustomPoint, MapOptions } from '@/vue3-azure-maps/types.ts'
+  import { generateMockPolygons } from '@/vue3-azure-maps/utils/dataGeneration.ts'
   import atlas from 'azure-maps-control'
-  import AzureMapPolygon from '@/vue-3-azure-maps/components/geometries/AzureMapPolygon.vue'
-  import AzureMapPolygonLayer from '@/vue-3-azure-maps/components/Layers/AzureMapPolygonLayer.vue'
+  import AzureMapPolygon from '@/vue3-azure-maps/components/geometries/AzureMapPolygon.vue'
+  import AzureMapPolygonLayer from '@/vue3-azure-maps/components/Layers/AzureMapPolygonLayer.vue'
 
   const mapOptions = {
     center: [-122.33, 47.6],
