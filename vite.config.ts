@@ -1,10 +1,30 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+import typescript2 from 'rollup-plugin-typescript2'
+import dts from 'vite-plugin-dts'
 
-// https://vitejs.dev/config/
+//https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    dts({
+      insertTypesEntry: true,
+    }),
+    typescript2({
+      check: false,
+      include: ['src/components/**/*.vue'],
+      tsconfigOverride: {
+        compilerOptions: {
+          outDir: 'dist',
+          sourceMap: true,
+          declaration: true,
+          declarationMap: true,
+        },
+      },
+      exclude: ['vite.config.ts'],
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -12,10 +32,11 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
   },
   build: {
+    cssCodeSplit: true,
     lib: {
       // the entry file that is loaded whenever someone imports
       // your plugin in their app
-      entry: path.resolve(__dirname, 'src/vue3-azure-maps/index.ts'),
+      entry: path.resolve(__dirname, 'src/vue3AzureMaps/Vue3AzureMaps.ts'),
 
       // the exposed global variable
       // is required when formats includes 'umd' or 'iife'
@@ -26,14 +47,21 @@ export default defineConfig({
       // name.umd.cjs) (common js module)
       // default fileName is the name option of package.json
       fileName: 'vue3-azure-maps',
+      formats: ['es', 'cjs', 'umd'],
     },
     rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
+      // make sure to externalize deps that should not be bundled
       // into your library
+      input: {
+        main: path.resolve(__dirname, 'src/vue3AzureMaps/Vue3AzureMaps.ts'),
+      },
       external: ['vue'],
       output: {
-        // Provide global variables to use in the UMD build
-        // for externalized deps
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'main.css') return 'my-library-vue-ts.css'
+          return assetInfo.name
+        },
+        exports: 'named',
         globals: {
           vue: 'Vue',
         },
