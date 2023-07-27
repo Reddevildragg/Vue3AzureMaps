@@ -24,7 +24,7 @@
     PropType,
   } from 'vue'
   import atlas from 'azure-maps-control'
-  import { AzureMapUserPositionEvent } from '@/Vue3AzureMaps/types.ts'
+  import { AzureMapUserPositionEvent } from '@/Vue3AzureMaps/utils/enums.ts'
   import {
     AzureMapPoint,
     AzureMapSymbolLayer,
