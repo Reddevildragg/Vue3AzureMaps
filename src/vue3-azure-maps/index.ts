@@ -1,4 +1,5 @@
 import 'azure-maps-control/dist/atlas.min.css'
+import '@/vue3-azure-maps/main.scss'
 
 //===
 // Components
