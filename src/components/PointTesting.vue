@@ -40,10 +40,11 @@
     AzureMapStyleControl,
     AzureMapSymbolLayer,
     AzureMapZoomControl,
-  } from '../Vue3AzureMaps'
-  import { CustomPoint, MapOptions } from '@/Vue3AzureMaps/types.ts'
+    CustomPoint,
+    MapOptions,
+  } from '../vue3-azure-maps'
   import atlas from 'azure-maps-control'
-  import { generateMockPoints } from '@/Vue3AzureMaps/utils/dataGeneration.ts'
+  import { generateMockPoints } from '@/vue3-azure-maps/utils/dataGeneration.ts'
 
   const mapOptions = {
     center: [-122.33, 47.6],

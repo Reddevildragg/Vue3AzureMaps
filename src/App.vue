@@ -1,6 +1,6 @@
 <template>
-  <navigation></navigation>
-  <router-view></router-view>
+  <navigation />
+  <router-view style="height: 80%" />
 </template>
 
 <script setup lang="ts">

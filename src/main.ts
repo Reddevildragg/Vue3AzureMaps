@@ -4,8 +4,9 @@ import App from './App.vue'
 import router from '@/router/index.ts'
 import 'bootstrap/dist/js/bootstrap.js'
 import '@/design/main.scss'
+import '@/vue3-azure-maps/main.scss'
 
-import Vue3AzureMaps from './Vue3AzureMaps/Vue3AzureMaps.ts'
+import Vue3AzureMaps from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
 const app = createApp(App)
 app.use(router)

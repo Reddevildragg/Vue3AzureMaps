@@ -43,10 +43,11 @@
     AzureMapBubbleLayer,
     AzureMapDataSource,
     AzureMapPoint,
-  } from '../Vue3AzureMaps'
-  import { CustomPoint, MapOptions } from '@/Vue3AzureMaps/types.ts'
+    CustomPoint,
+    MapOptions,
+  } from '../vue3-azure-maps'
 
-  import { generateMockPoints } from '@/Vue3AzureMaps/utils/dataGeneration.ts'
+  import { generateMockPoints } from '@/vue3-azure-maps/utils/dataGeneration.ts'
   import atlas from 'azure-maps-control'
 
   const mapOptions = {

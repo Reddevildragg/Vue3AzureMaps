@@ -9,7 +9,7 @@
   "license": "MIT",
   "main": "./dist/vue3-azure-maps.umd.cjs",
   "module": "./dist/vue3-azure-maps.js",
-  "types": "./dist/vue3-azure-maps/Vue3AzureMaps.d.ts",
+  "types": "./dist/vue3-azure-maps/index.d.ts",
   "files": [
     "dist"
   ],
@@ -17,6 +17,10 @@
     ".": {
       "import": "./dist/vue3-azure-maps.js",
       "require": "./dist/vue3-azure-maps.umd.cjs"
+    },
+    "./dist/vue3-azure-maps.css": {
+      "import": "./dist/vue3-azure-maps.css",
+      "require": "./dist/vue3-azure-maps.css"
     }
   },
   "scripts": {
