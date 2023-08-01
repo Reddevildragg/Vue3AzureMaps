@@ -11,7 +11,7 @@ import Vue3AzureMaps from '@/vue3-azure-maps/vue3-azure-maps.ts'
 const app = createApp(App)
 app.use(router)
 app.use(Vue3AzureMaps, {
-  key: '_fjWee10_s4FruW4IeF9_Ch7tIB-aw19MB2dYOkCXCQ',
+  key: import.meta.env.VITE_AZURE_MAP_KEY,
 })
 
 app.mount('#app')
