@@ -1,30 +1,57 @@
 <template></template>
 
-<script setup lang="ts">
-  import { getCurrentInstance, inject, onMounted, onUnmounted } from 'vue'
-  import { Shape } from 'azure-maps-control'
+<script lang="ts" setup>
+  import {
+    computed,
+    getCurrentInstance,
+    inject,
+    onMounted,
+    onUnmounted,
+    watch,
+  } from 'vue'
 
   const currentInstance = getCurrentInstance()
   const map = inject('getMap')
   const dataSource = inject('getDataSource')
-  let shape: Shape
 
   const props = defineProps({
     geoJsonUrl: {
       type: String,
       default: '',
     },
+    geoJsonData: {
+      type: Object,
+      default: undefined,
+    },
   })
+
+  const jsonUrl = computed(() => props.geoJsonUrl)
 
   onMounted(() => {
     if (!map?.value || !currentInstance) {
       return
     }
 
-    dataSource.value?.importDataFromUrl(props.geoJsonUrl)
+    if (jsonUrl.value) {
+      dataSource.value?.importDataFromUrl(jsonUrl.value)
+    }
+
+    if (props.geoJsonData) {
+      dataSource.value?.add(props.geoJsonData)
+    }
   })
 
   onUnmounted(() => {
-    dataSource.value?.remove(shape)
+    if (props.geoJsonData) {
+      dataSource.value?.remove(props.geoJsonData)
+    }
   })
+
+  watch(
+    () => props.geoJsonData,
+    (value, oldValue) => {
+      dataSource.value?.remove(oldValue)
+      dataSource.value?.add(value)
+    }
+  )
 </script>

@@ -14,6 +14,7 @@
   import { useAttrs } from 'vue'
   import atlas from 'azure-maps-control'
   import { AzureMapEvent } from '@/vue3-azure-maps/utils/enums.ts'
+  import { azureMapStore } from '@/vue3-azure-maps'
 
   const attrs = useAttrs()
   const app = getCurrentInstance()
@@ -373,7 +374,7 @@
     },
   })
 
-  const mapId = `azure-map`
+  const mapId = 'azure-map-' + azureMapStore.mapId++
   const map = ref<atlas.Map | null>(null)
   const isMapReady = ref<boolean>(false)
 

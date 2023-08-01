@@ -31,7 +31,7 @@
     },
 
     options: {
-      type: Object as PropType<atlas.HeatMapLayerOptions | null>,
+      type: Object as PropType<atlas.BubbleLayerOptions | null>,
       default: null,
     },
   })

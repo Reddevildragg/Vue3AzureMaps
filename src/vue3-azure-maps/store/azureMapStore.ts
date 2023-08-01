@@ -1,6 +1,7 @@
 import { reactive } from 'vue'
 
 export const azureMapStore = reactive({
+  mapId: 0,
   mapPointId: 0,
   dataSourceId: 0,
   tileLayerId: 0,

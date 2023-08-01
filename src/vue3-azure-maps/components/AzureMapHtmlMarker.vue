@@ -121,7 +121,6 @@
   let marker: atlas.HtmlMarker
 
   const slots = useSlots()
-  console.log('slots', slots.default)
 
   onMounted(() => {
     if (!map?.value || !currentInstance) {

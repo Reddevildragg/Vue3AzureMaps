@@ -14,6 +14,8 @@ import HTMLMarkerTesting from '@/components/HTMLMarkerTesting.vue'
 import GeoJSONTesting from '@/components/GeoJSONTesting.vue'
 import ClusterAverageTesting from '@/components/ClusterAverageTesting.vue'
 import ChoroplethMapTesting from '@/components/ChoroplethMapTesting.vue'
+import ClusterSumTesting from '@/components/ClusterSumTesting.vue'
+import MultiMap from '@/components/MultiMap.vue'
 
 ///default built in routes
 const routes = [
@@ -73,9 +75,19 @@ const routes = [
     component: ClusterAverageTesting,
   },
   {
+    path: '/dataCluster2',
+    name: 'dataClusterTest2',
+    component: ClusterSumTesting,
+  },
+  {
     path: '/choropleth',
     name: 'choropleth',
     component: ChoroplethMapTesting,
+  },
+  {
+    path: '/Multi',
+    name: 'Multi',
+    component: MultiMap,
   },
 ]
 

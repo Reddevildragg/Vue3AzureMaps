@@ -34,6 +34,7 @@ import AzureMapPoint from './components/geometries/AzureMapPoint.vue'
 import AzureMapCircle from './components/geometries/AzureMapCircle.vue'
 import AzureMapLineString from './components/geometries/AzureMapLineString.vue'
 import AzureMapPolygon from './components/geometries/AzureMapPolygon.vue'
+import AzureMapGeoJson from '@/vue3-azure-maps/components/geometries/AzureMapGeoJson.vue'
 
 //===
 // Layer components
@@ -79,6 +80,7 @@ export {
   AzureMapSymbolLayer,
   AzureMapPolygonLayer,
   AzureMapLineLayer,
+  AzureMapGeoJson,
   AzureMapHeatMapLayer,
   AzureMapImageLayer,
   AzureMapTileLayer,
