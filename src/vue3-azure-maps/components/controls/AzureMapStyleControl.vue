@@ -8,17 +8,11 @@
     ControlStyle,
     StyleControlOptions,
   } from 'azure-maps-control'
-  import {
-    inject,
-    onMounted,
-    PropType,
-    getCurrentInstance,
-    Ref,
-    ref,
-  } from 'vue'
+  import { inject, onMounted, PropType, ref } from 'vue'
   import getOptionsFromProps from '@/vue3-azure-maps/utils/getOptionsFromProps.ts'
   import AzureMapControl from '@/vue3-azure-maps/components/controls/AzureMapControl.vue'
-  const app = getCurrentInstance()
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const map = inject('getMap')
   const loaded = ref(false)
 
@@ -57,17 +51,14 @@
   })
 
   onMounted(() => {
-    if (!map?.value || !app) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 
-    control =
-      new app.appContext.config.globalProperties.$_azureMaps.atlas.control.StyleControl(
-        {
-          style: props.controlStyle,
-          mapStyles: props.mapStyles as string[] | 'all',
-        } as StyleControlOptions
-      )
+    control = new vueAzureMaps.atlas.control.StyleControl({
+      style: props.controlStyle,
+      mapStyles: props.mapStyles as string[] | 'all',
+    } as StyleControlOptions)
     options = getOptionsFromProps<atlas.ControlOptions>({
       position: props.position,
     } as atlas.ControlOptions)

@@ -2,15 +2,7 @@
 
 <script setup lang="ts">
   import { AzureMapSpiderClusterManagerEvent } from '@/vue3-azure-maps/utils/enums.ts'
-  import {
-    getCurrentInstance,
-    inject,
-    ref,
-    onMounted,
-    onUnmounted,
-    PropType,
-    watch,
-  } from 'vue'
+  import { inject, ref, onMounted, onUnmounted, PropType, watch } from 'vue'
   import atlas from 'azure-maps-control'
   import getOptionsFromProps from '@/vue3-azure-maps/utils/getOptionsFromProps.ts'
 
@@ -18,6 +10,7 @@
     ISpiderClusterOptions,
     SpiderClusterManager,
   } from '@/vue3-azure-maps/modules/other/spiderClusterManager.ts'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
   const props = defineProps({
     /**
@@ -90,12 +83,12 @@
     AzureMapSpiderClusterManagerEvent.FeatureUnselected,
   ])
 
-  const currentInstance = getCurrentInstance()
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const map = inject('getMap')
   const spiderManager = ref<SpiderClusterManager>(null)
 
   onMounted(async () => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 
@@ -105,7 +98,7 @@
     const options = getOptionsFromProps<ISpiderClusterOptions>({ props: props })
 
     spiderManager.value = new SpiderClusterManager(
-      currentInstance.appContext.config.globalProperties.$_azureMaps.atlas,
+      vueAzureMaps.atlas,
       map.value,
       props.clusterLayer,
       props.unclustedLayer,

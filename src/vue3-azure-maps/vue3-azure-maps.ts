@@ -4,7 +4,7 @@ import atlas from 'azure-maps-control'
 export interface VueAzureMapsPluginOptions {
   key: string
 }
-export class CreateVueAzureMap {
+export class VueAzureMap {
   options: VueAzureMapsPluginOptions
 
   public readonly key: string
@@ -28,9 +28,8 @@ export class CreateVueAzureMap {
 
 export default {
   install(app: App, options: VueAzureMapsPluginOptions) {
-    app.config.globalProperties.$_azureMaps = new CreateVueAzureMap(
-      atlasJs,
-      options
-    )
+    const azureMap = new VueAzureMap(atlasJs, options)
+    app.config.globalProperties.$_azureMaps = azureMap
+    app.provide('azureMaps', azureMap)
   },
 }

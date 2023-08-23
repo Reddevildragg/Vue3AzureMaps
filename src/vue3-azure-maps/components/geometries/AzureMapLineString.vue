@@ -1,15 +1,7 @@
 <template></template>
 
 <script setup lang="ts">
-  import {
-    computed,
-    getCurrentInstance,
-    inject,
-    onMounted,
-    onUnmounted,
-    PropType,
-    ref,
-  } from 'vue'
+  import { inject, onMounted, onUnmounted, PropType, ref } from 'vue'
   import atlas, {
     ControlPosition,
     ControlStyle,
@@ -17,8 +9,9 @@
   } from 'azure-maps-control'
   import { AzureMapPointEvent } from '@/vue3-azure-maps/utils/enums.ts'
   import { azureMapStore } from '@/vue3-azure-maps/store/azureMapStore.ts'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
-  const currentInstance = getCurrentInstance()
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const map = inject('getMap')
   const dataSource = inject('getDataSource')
 
@@ -39,19 +32,16 @@
   })
 
   onMounted(() => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 
     // Create a shape from the line string geometry
-    shape =
-      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.Shape(
-        new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.data.LineString(
-          props.coordinates || []
-        ),
-        props.id || `azure-map-line-string-${azureMapStore.lineStringId}`,
-        props.properties
-      )
+    shape = new vueAzureMaps.atlas.Shape(
+      new vueAzureMaps.atlas.data.LineString(props.coordinates || []),
+      props.id || `azure-map-line-string-${azureMapStore.lineStringId}`,
+      props.properties
+    )
 
     dataSource.value?.add([shape])
   })

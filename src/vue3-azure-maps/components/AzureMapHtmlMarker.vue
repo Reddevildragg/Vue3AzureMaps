@@ -7,7 +7,6 @@
 <script setup lang="ts">
   import atlas from 'azure-maps-control'
   import {
-    getCurrentInstance,
     inject,
     ref,
     useAttrs,
@@ -19,6 +18,7 @@
   } from 'vue'
   import getOptionsFromProps from '@/vue3-azure-maps/utils/getOptionsFromProps.ts'
   import addMapEventListeners from '@/vue3-azure-maps/utils/addMapEventListeners.ts'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
   const props = defineProps({
     /**
@@ -114,30 +114,29 @@
   })
 
   const attrs = useAttrs()
-  const currentInstance = getCurrentInstance()
   const map = inject('getMap')
   const el = ref(null)
 
   let marker: atlas.HtmlMarker
 
   const slots = useSlots()
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
 
   onMounted(() => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 
-    marker =
-      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.HtmlMarker(
-        getOptionsFromProps({
-          props: {
-            ...props,
-            htmlContent: slots.default
-              ? (el.value as HTMLElement)
-              : props.htmlContent,
-          },
-        })
-      )
+    marker = new vueAzureMaps.atlas.HtmlMarker(
+      getOptionsFromProps({
+        props: {
+          ...props,
+          htmlContent: slots.default
+            ? (el.value as HTMLElement)
+            : props.htmlContent,
+        },
+      })
+    )
 
     map.value?.markers.add(marker)
 

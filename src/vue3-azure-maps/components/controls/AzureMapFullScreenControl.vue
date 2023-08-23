@@ -4,19 +4,14 @@
 
 <script setup lang="ts">
   import atlas, { ControlPosition, ControlStyle } from 'azure-maps-control'
-  import {
-    inject,
-    onMounted,
-    PropType,
-    getCurrentInstance,
-    Ref,
-    ref,
-  } from 'vue'
+  import { inject, onMounted, PropType, ref } from 'vue'
   import getOptionsFromProps from '@/vue3-azure-maps/utils/getOptionsFromProps.ts'
   import { FullscreenControl } from '@/vue3-azure-maps/modules/controls/fullscreen.ts'
   import AzureMapControl from '@/vue3-azure-maps/components/controls/AzureMapControl.vue'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
-  const app = getCurrentInstance()
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
+
   const map = inject('getMap')
   const loaded = ref(false)
 
@@ -55,7 +50,7 @@
   })
 
   onMounted(() => {
-    if (!map?.value || !app) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 

@@ -8,7 +8,9 @@
   import getOptionsFromProps from '@/vue3-azure-maps/utils/getOptionsFromProps.ts'
   import { GeolocationControl } from '@/vue3-azure-maps/modules/controls/geolocation.ts'
   import AzureMapControl from '@/vue3-azure-maps/components/controls/AzureMapControl.vue'
-  const app = getCurrentInstance()
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
+
   const map = inject('getMap')
   const loaded = ref(false)
 
@@ -72,7 +74,7 @@
   })
 
   onMounted(() => {
-    if (!map?.value || !app) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 

@@ -7,7 +7,6 @@
 <script setup lang="ts">
   import { AzureMapPopupEvent } from '@/vue3-azure-maps/utils/enums.ts'
   import {
-    getCurrentInstance,
     inject,
     ref,
     onMounted,
@@ -19,6 +18,7 @@
   import atlas, { PopupOptions } from 'azure-maps-control'
   import getOptionsFromProps from '@/vue3-azure-maps/utils/getOptionsFromProps.ts'
   import addMapEventListeners from '@/vue3-azure-maps/utils/addMapEventListeners.ts'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
   const props = defineProps({
     /**
@@ -104,24 +104,23 @@
   ])
 
   const slots = useSlots()
-  const currentInstance = getCurrentInstance()
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const map = inject('getMap')
   const popup = ref<atlas.Popup>(null)
   const el = ref(null)
   const unmountEvents: Array<() => void> = []
 
   onMounted(async () => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 
-    popup.value =
-      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.Popup(
-        getOptionsFromProps({
-          props: props,
-          excludedPropKeys: ['tag', 'open'],
-        }) as PopupOptions
-      )
+    popup.value = new vueAzureMaps.atlas.Popup(
+      getOptionsFromProps({
+        props: props,
+        excludedPropKeys: ['tag', 'open'],
+      }) as PopupOptions
+    )
 
     emit(AzureMapPopupEvent.Created, popup.value)
 

@@ -15,14 +15,7 @@
 </template>
 
 <script setup lang="ts">
-  import {
-    getCurrentInstance,
-    inject,
-    ref,
-    computed,
-    onMounted,
-    PropType,
-  } from 'vue'
+  import { inject, ref, computed, onMounted, PropType } from 'vue'
   import atlas from 'azure-maps-control'
   import { AzureMapUserPositionEvent } from '@/vue3-azure-maps'
   import {
@@ -32,6 +25,7 @@
     AzureMapCircle,
     AzureMapDataSource,
   } from '@/vue3-azure-maps'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
   const props = defineProps({
     /**
@@ -122,7 +116,6 @@
     AzureMapUserPositionEvent.Timeout,
   ])
 
-  const currentInstance = getCurrentInstance()
   const map = inject('getMap')
 
   const longitude = ref<number>(0)
@@ -131,6 +124,7 @@
 
   const hasPosition = ref<boolean>(false)
   const error = ref<GeolocationPositionError | null>(null)
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
 
   const defaultSymbolLayerOptions = {
     filter: [
@@ -152,7 +146,7 @@
   })
 
   onMounted(async () => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 

@@ -1,15 +1,9 @@
 <template></template>
 
 <script setup lang="ts">
-  import {
-    getCurrentInstance,
-    inject,
-    ref,
-    onMounted,
-    onUnmounted,
-    PropType,
-  } from 'vue'
+  import { inject, ref, onMounted, onUnmounted, PropType } from 'vue'
   import { AzureMapImageSpriteIconEvent } from '@/vue3-azure-maps/utils/enums.ts'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
   const props = defineProps({
     /**
@@ -37,11 +31,11 @@
     AzureMapImageSpriteIconEvent.Error,
   ])
 
-  const currentInstance = getCurrentInstance()
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const map = inject('getMap')
 
   onMounted(async () => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 

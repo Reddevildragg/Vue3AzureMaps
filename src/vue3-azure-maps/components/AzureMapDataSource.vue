@@ -10,7 +10,6 @@
   import getOptionsFromProps from '@/vue3-azure-maps/utils/getOptionsFromProps.ts'
   import {
     computed,
-    getCurrentInstance,
     inject,
     onMounted,
     onUnmounted,
@@ -21,8 +20,8 @@
   } from 'vue'
   import atlas from 'azure-maps-control'
   import { azureMapStore } from '@/vue3-azure-maps/store/azureMapStore.ts'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
-  const app = getCurrentInstance()
   const map = inject('getMap')
   const dataSource = ref<atlas.source.DataSource | null>(null)
 
@@ -109,16 +108,17 @@
     },
   })
 
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
+
   onMounted(() => {
-    if (!map?.value || !app) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 
-    dataSource.value =
-      new app.appContext.config.globalProperties.$_azureMaps.atlas.source.DataSource(
-        props.id || `azure-map-data-source-${azureMapStore.dataSourceId++}`,
-        getOptionsFromProps({ props: dataSourceOptionsProps.value })
-      )
+    dataSource.value = new vueAzureMaps.atlas.source.DataSource(
+      props.id || `azure-map-data-source-${azureMapStore.dataSourceId++}`,
+      getOptionsFromProps({ props: dataSourceOptionsProps.value })
+    )
 
     map.value.sources.add(dataSource.value)
   })

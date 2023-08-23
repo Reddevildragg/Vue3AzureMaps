@@ -3,23 +3,16 @@
 <script setup lang="ts">
   import { ref, watch } from 'vue'
   import atlas from 'azure-maps-control'
-  import {
-    getCurrentInstance,
-    inject,
-    onMounted,
-    onUnmounted,
-    PropType,
-    useAttrs,
-  } from 'vue'
+  import { inject, onMounted, onUnmounted, PropType, useAttrs } from 'vue'
   import { AzureMapImageLayerEvent } from '@/vue3-azure-maps/utils/enums.ts'
   import addMapEventListeners from '@/vue3-azure-maps/utils/addMapEventListeners.ts'
   import { azureMapStore } from '@/vue3-azure-maps/store/azureMapStore.ts'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
   const emit = defineEmits([AzureMapImageLayerEvent.Created])
 
   const attrs = useAttrs()
-  const currentInstance = getCurrentInstance()
-
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const map = inject('getMap')
   const dataSource = inject('getDataSource')
   const imageLayer = ref<atlas.layer.ImageLayer>(null)
@@ -37,16 +30,15 @@
   })
 
   onMounted(() => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 
     // Create the polygon layer
-    imageLayer.value =
-      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.ImageLayer(
-        props.options || undefined,
-        props.id || `azure-map-image-layer-${azureMapStore.imageLayerId++}`
-      )
+    imageLayer.value = new vueAzureMaps.atlas.layer.ImageLayer(
+      props.options || undefined,
+      props.id || `azure-map-image-layer-${azureMapStore.imageLayerId++}`
+    )
 
     emit(AzureMapImageLayerEvent.Created, imageLayer.value)
     map.value?.layers.add(imageLayer.value)

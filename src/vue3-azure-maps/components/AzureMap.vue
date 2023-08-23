@@ -9,15 +9,22 @@
 <script lang="ts" setup>
   import getOptionsFromProps from '@/vue3-azure-maps/utils/getOptionsFromProps.ts'
   import addMapEventListeners from '@/vue3-azure-maps/utils/addMapEventListeners.ts'
-  import { onMounted, onUnmounted, PropType, provide, ref, watch } from 'vue'
-  import { getCurrentInstance } from 'vue'
+  import {
+    inject,
+    onMounted,
+    onUnmounted,
+    PropType,
+    provide,
+    ref,
+    watch,
+  } from 'vue'
   import { useAttrs } from 'vue'
-  import atlas from 'azure-maps-control'
+  import atlas, { ServiceOptions } from 'azure-maps-control'
   import { AzureMapEvent } from '@/vue3-azure-maps/utils/enums.ts'
   import { azureMapStore } from '@/vue3-azure-maps'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
   const attrs = useAttrs()
-  const app = getCurrentInstance()
   const emit = defineEmits(['ready'])
   const props = defineProps({
     /**
@@ -374,6 +381,7 @@
     },
   })
 
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const mapId = 'azure-map-' + azureMapStore.mapId++
   const map = ref<atlas.Map | null>(null)
   const isMapReady = ref<boolean>(false)
@@ -395,16 +403,15 @@
   })
 
   function initializeMap(): void {
-    map.value =
-      new app.appContext.config.globalProperties.$_azureMaps.atlas.Map(
-        mapId,
-        getOptionsFromProps({
-          props: props,
-          reservedAttributes: {
-            mapStyle: 'style',
-          },
-        })
-      )
+    map.value = new vueAzureMaps.atlas.Map(
+      mapId,
+      getOptionsFromProps({
+        props: props,
+        reservedAttributes: {
+          mapStyle: 'style',
+        },
+      })
+    )
 
     unmountEvents.push(
       addMapEventListeners({

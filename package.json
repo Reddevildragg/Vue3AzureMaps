@@ -1,11 +1,15 @@
 {
   "name": "@greener-games/vue3-azure-maps",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "author": {
     "name": "Tom Greener"
   },
+  "bugs": {
+    "url": "https://github.com/Reddevildragg/Vue3AzureMaps/issues"
+  },
+  "homepage": "https://github.com/Reddevildragg/Vue3AzureMaps",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

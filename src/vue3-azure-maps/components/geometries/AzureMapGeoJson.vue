@@ -1,16 +1,10 @@
 <template></template>
 
 <script lang="ts" setup>
-  import {
-    computed,
-    getCurrentInstance,
-    inject,
-    onMounted,
-    onUnmounted,
-    watch,
-  } from 'vue'
+  import { computed, inject, onMounted, onUnmounted, watch } from 'vue'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
-  const currentInstance = getCurrentInstance()
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const map = inject('getMap')
   const dataSource = inject('getDataSource')
 
@@ -28,7 +22,7 @@
   const jsonUrl = computed(() => props.geoJsonUrl)
 
   onMounted(() => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 

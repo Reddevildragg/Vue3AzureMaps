@@ -3,23 +3,16 @@
 <script setup lang="ts">
   import { ref, watch } from 'vue'
   import atlas from 'azure-maps-control'
-  import {
-    getCurrentInstance,
-    inject,
-    onMounted,
-    onUnmounted,
-    PropType,
-    useAttrs,
-  } from 'vue'
+  import { inject, onMounted, onUnmounted, PropType, useAttrs } from 'vue'
   import { AzureMapLineLayerEvent } from '@/vue3-azure-maps/utils/enums.ts'
   import addMapEventListeners from '@/vue3-azure-maps/utils/addMapEventListeners.ts'
   import { azureMapStore } from '@/vue3-azure-maps/store/azureMapStore.ts'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
   const emit = defineEmits([AzureMapLineLayerEvent.Created])
 
   const attrs = useAttrs()
-  const currentInstance = getCurrentInstance()
-
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const map = inject('getMap')
   const dataSource = inject('getDataSource')
   const lineLayer = ref<atlas.layer.LineLayer>(null)
@@ -36,17 +29,16 @@
     },
   })
   onMounted(() => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 
     // Create the polygon layer
-    lineLayer.value =
-      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.LineLayer(
-        dataSource,
-        props.id || `azure-map-line-layer-${azureMapStore.lineLayerId++}`,
-        props.options || undefined
-      )
+    lineLayer.value = new vueAzureMaps.atlas.layer.LineLayer(
+      dataSource,
+      props.id || `azure-map-line-layer-${azureMapStore.lineLayerId++}`,
+      props.options || undefined
+    )
 
     emit(AzureMapLineLayerEvent.Created, lineLayer.value)
     map.value?.layers.add(lineLayer.value)

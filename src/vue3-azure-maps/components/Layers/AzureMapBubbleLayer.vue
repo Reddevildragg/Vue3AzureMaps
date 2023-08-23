@@ -3,23 +3,16 @@
 <script setup lang="ts">
   import { ref, watch } from 'vue'
   import atlas from 'azure-maps-control'
-  import {
-    getCurrentInstance,
-    inject,
-    onMounted,
-    onUnmounted,
-    PropType,
-    useAttrs,
-  } from 'vue'
+  import { inject, onMounted, onUnmounted, PropType, useAttrs } from 'vue'
   import { AzureMapBubbleLayerEvent } from '@/vue3-azure-maps/utils/enums.ts'
   import addMapEventListeners from '@/vue3-azure-maps/utils/addMapEventListeners.ts'
   import { azureMapStore } from '@/vue3-azure-maps/store/azureMapStore.ts'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
   const emit = defineEmits([AzureMapBubbleLayerEvent.Created])
 
   const attrs = useAttrs()
-  const currentInstance = getCurrentInstance()
-
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const map = inject('getMap')
   const dataSource = inject('getDataSource')
   const bubbleLayer = ref<atlas.layer.BubbleLayer>(null)
@@ -37,17 +30,16 @@
   })
 
   onMounted(() => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 
     // Create the polygon layer
-    bubbleLayer.value =
-      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.layer.BubbleLayer(
-        dataSource,
-        props.id || `azure-map-bubble-layer-${azureMapStore.bubbleLayerId++}`,
-        props.options || undefined
-      )
+    bubbleLayer.value = new vueAzureMaps.atlas.layer.BubbleLayer(
+      dataSource,
+      props.id || `azure-map-bubble-layer-${azureMapStore.bubbleLayerId++}`,
+      props.options || undefined
+    )
 
     emit(AzureMapBubbleLayerEvent.Created, bubbleLayer.value)
 

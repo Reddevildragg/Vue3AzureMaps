@@ -1,17 +1,11 @@
 <template></template>
 
 <script lang="ts" setup>
-  import {
-    computed,
-    getCurrentInstance,
-    inject,
-    onMounted,
-    onUnmounted,
-    watch,
-  } from 'vue'
+  import { computed, inject, onMounted, onUnmounted, watch } from 'vue'
   import atlas, { Shape } from 'azure-maps-control'
   import { AzureMapPointEvent } from '@/vue3-azure-maps/utils/enums.ts'
   import { azureMapStore } from '@/vue3-azure-maps/store/azureMapStore.ts'
+  import { VueAzureMap } from '@/vue3-azure-maps/vue3-azure-maps.ts'
 
   const emit = defineEmits([
     AzureMapPointEvent.GeometryCreated,
@@ -20,7 +14,7 @@
     AzureMapPointEvent.CircleCoordinates,
   ])
 
-  const currentInstance = getCurrentInstance()
+  const vueAzureMaps = inject<VueAzureMap>('azureMaps')
   const map = inject('getMap')
   const dataSource = inject('getDataSource')
   let shape: Shape
@@ -67,25 +61,23 @@
   })
 
   onMounted(() => {
-    if (!map?.value || !currentInstance) {
+    if (!map?.value || !vueAzureMaps) {
       return
     }
 
     // Create a point geometry
-    const point =
-      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.data.Point(
-        pointCoordinates.value || []
-      )
+    const point = new vueAzureMaps.atlas.data.Point(
+      pointCoordinates.value || []
+    )
 
     emit(AzureMapPointEvent.GeometryCreated, point)
 
     // Create a shape from the point geometry
-    shape =
-      new currentInstance.appContext.config.globalProperties.$_azureMaps.atlas.Shape(
-        point,
-        props.id || `azure-map-point-${azureMapStore.mapPointId++}`,
-        props?.properties
-      )
+    shape = new vueAzureMaps.atlas.Shape(
+      point,
+      props.id || `azure-map-point-${azureMapStore.mapPointId++}`,
+      props?.properties
+    )
 
     emit(AzureMapPointEvent.ShapeCreated, shape)
 
